@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Calculators</title>
+    <link>http://localhost:1313/calculators/</link>
+    <description>Recent content on Calculators</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/calculators/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Regular Calculator</title>
+      <link>http://localhost:1313/calculators/regular-calculator/</link>
+      <pubDate>Sun, 09 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/calculators/regular-calculator/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>BMI Calculator</title>
+      <link>http://localhost:1313/calculators/bmi-calculator/</link>
+      <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/calculators/bmi-calculator/</guid>
+      <description>&lt;p&gt;Calculate your Body Mass Index (BMI) below:&lt;/p&gt;&#xA;&lt;form id=&#34;bmi-form&#34;&gt;&#xA;    &lt;label for=&#34;weight&#34;&gt;Weight (kg):&lt;/label&gt;&#xA;    &lt;input type=&#34;number&#34; id=&#34;weight&#34; required&gt;&#xA;    &lt;label for=&#34;height&#34;&gt;Height (m):&lt;/label&gt;&#xA;    &lt;input type=&#34;number&#34; id=&#34;height&#34; required&gt;&#xA;    &lt;button type=&#34;button&#34; onclick=&#34;calculateBMI()&#34;&gt;Calculate&lt;/button&gt;&#xA;&lt;/form&gt;&#xA;&lt;p id=&#34;bmi-result&#34;&gt;&lt;/p&gt;&#xA;&lt;script&gt;&#xA;    function calculateBMI() {&#xA;        var weight = document.getElementById(&#39;weight&#39;).value;&#xA;        var height = document.getElementById(&#39;height&#39;).value;&#xA;        if (weight &amp;&amp; height) {&#xA;            var bmi = weight / (height * height);&#xA;            document.getElementById(&#39;bmi-result&#39;).innerText = &#34;Your BMI is &#34; + bmi.toFixed(2);&#xA;        }&#xA;    }&#xA;&lt;/script&gt;</description>
+    </item>
+  </channel>
+</rss>
