@@ -1,6 +1,6 @@
 <header>
-  <h1>Welcome to {{ .Site.Title }}</h1>
+  <h1>{{ .Site.Title }}</h1>
   <nav>
-    <a href="/">Home</a>
+    <a href="{{ .Site.BaseURL | relURL }}">Home</a>
   </nav>
 </header>

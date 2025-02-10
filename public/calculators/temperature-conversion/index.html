@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/calculators/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=calculators/livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Conversions</title>
+  <link rel="stylesheet" href='/calculators/css/style.css'>
+</head>
+<body>
+  <header>
+  <h1>My Pocket Computer</h1>
+  <nav>
+    <a href="/calculators">Home</a>
+  </nav>
+</header>
+  <main>
+    
+<h2>Temperature Conversions</h2>
+<p>If you know a temperature in celsius, farenheit, or kelvin, show what the other values would be.</p>
+<form id="bmi-form">
+  <label for="celsius">Celsius:</label>
+  <input type="number" id="celsius" required>
+  <label for="farenheit">Farenheit:</label>
+  <input type="number" id="farenheit" required>
+  <label for="kelvin">Kelvin:</label>
+  <input type="number" id="kelvin" required>
+</form>
+<script>
+  const celsius = document.getElementById('celsius');
+  const farenheit = document.getElementById('farenheit');
+  const kelvin = document.getElementById('kelvin');
+  celsius.addEventListener('input', function(){
+    const celsiusValue = parseFloat(celsius.value);
+    farenheit.value = ((celsiusValue * 9/5) + 32).toFixed(2);
+    kelvin.value = (celsiusValue + 273.15).toFixed(2);
+  });
+  farenheit.addEventListener('input', function(){
+    const farenheitValue = parseFloat(farenheit.value);
+    celsius.value = ((farenheitValue - 32) * 5/9).toFixed(2);
+    kelvin.value = (((farenheitValue - 32) * 5/9) + 273.15).toFixed(2);
+  });
+  kelvin.addEventListener('input', function(){
+    const kelvinValue = parseFloat(kelvin.value);
+    celsius.value = (kelvinValue - 273.15).toFixed(2);
+    farenheit.value = ((celsius.value * 9/5) + 32).toFixed(2);
+  });
+</script>
+
+  </main>
+  <footer>
+  <p>&copy; 2025 <a href="https://wyliefisher.com" target="_blank">Wylie</a></p>
+</footer>
+</body>
+</html>

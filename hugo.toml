@@ -1,6 +1,6 @@
 baseURL = 'https://wylie.github.io/calculators/'
 languageCode = 'en-us'
-title = 'Calculators'
+title = 'My Pocket Computer'
 
 [markup]
   [markup.goldmark]

@@ -1,7 +1,7 @@
 <h2>Available Calculators</h2>
-<p>Check out all these awesome calculators!</p>
+<p>Calculate all the things!</p>
 <ul>
-  {{ range where .Site.Pages "Section" "calculators" }}
+  {{ range where .Site.RegularPages "Section" "calculators" }}
   <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
 </ul>
