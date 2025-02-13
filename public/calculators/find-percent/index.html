@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/calculators/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=calculators/livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N1 is what percent of N2 Calculator</title>
+  <link rel="stylesheet" href='/calculators/css/style.css'>
+</head>
+<body>
+  <header>
+  <h1>My Pocket Computer</h1>
+  <nav>
+    <a href="/calculators">Home</a>
+  </nav>
+</header>
+  <main>
+    
+<h2>N1 is what percent of N2 Calculator</h2>
+<p><code>Number1</code> is what percent of <code>Number2</code>:</p>
+<form id="bmi-form">
+  <label for="num1">Number 1:</label>
+  <input type="number" id="num1" required>
+  <label for="num2">Number 2:</label>
+  <input type="number" id="num2" required>
+  <button type="button" onclick="calculateBMI()">Calculate</button>
+</form>
+<p id="bmi-result"></p>
+<script>
+  function calculateBMI() {
+    var numOne = document.getElementById('num1').value;
+    var numTwo = document.getElementById('num2').value;
+    if (numOne && numTwo) {
+      var percent = (numOne / numTwo) * 100;
+      document.getElementById('bmi-result').innerText = percent.toFixed(0) + '%';
+    }
+  }
+</script>
+<style>
+  code {
+    font-size: inherit;
+    background-color: #eee;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+</style>
+
+  </main>
+  <footer>
+  <p>&copy; 2025 <a href="https://wyliefisher.com" target="_blank">Wylie</a></p>
+</footer>
+</body>
+</html>
