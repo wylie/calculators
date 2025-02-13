@@ -20,6 +20,20 @@ This repository contains the source code for a Hugo-based website that provides 
 
 The site is automatically built and deployed to GitHub Pages using the GitHub Actions workflow defined in `.github/workflows/hugo.yml`.
 
+## Development
+
+To build and serve the site locally, use the following commands in the terminal:
+
+```sh
+hugo server
+```
+
+To build the site for production, use:
+
+```sh
+hugo
+```
+
 ## License
 
 This project is licensed under the MIT License.
