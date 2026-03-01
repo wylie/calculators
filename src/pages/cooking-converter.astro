@@ -16,18 +16,18 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'How many grams are in a cup?',
+      name: 'How many tablespoons are in 1/4 cup?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'About 236.6 grams, but this varies by ingredient. Sugar, flour, and butter have different weights.',
+        text: '1/4 cup equals 4 tablespoons.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Should I use a scale for baking?',
+      name: 'Can I enter fractions like 1/2?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. A scale is more accurate than measuring cups, especially for baking where precision matters.',
+        text: 'Yes. The converter supports fractions and mixed numbers, such as 1/2 and 1 1/2.',
       },
     },
   ],
@@ -35,8 +35,8 @@ const faqSchema = {
 ---
 
 <MainLayout
-  title="Cooking Converter - Convert Cups to Grams"
-  description="Convert cooking measurements between cups, grams, ml, and ounces. Perfect for recipes from different regions."
+  title="Cooking Converter - Cups, Tbsp, Tsp, ml"
+  description="Convert kitchen volume measurements fast, including cups, tablespoons, teaspoons, milliliters, and fluid ounces."
   jsonLd={faqSchema}
 >
   <CookingConverterPage client:load />

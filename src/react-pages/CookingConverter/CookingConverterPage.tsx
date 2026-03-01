@@ -5,7 +5,6 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
-import { convertCooking } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
 
 const FRACTION_CHAR_MAP: Record<string, string> = {
@@ -53,24 +52,125 @@ const parseAmount = (rawValue: string): number => {
   return Number.NaN;
 };
 
+type CookingUnit = 'cups' | 'tbsp' | 'tsp' | 'ml' | 'flOz';
+
+const unitToMl: Record<CookingUnit, number> = {
+  cups: 236.588,
+  tbsp: 14.7868,
+  tsp: 4.92892,
+  ml: 1,
+  flOz: 29.5735,
+};
+
+const formatValue = (value: number): string => {
+  if (Math.abs(value) >= 100) return value.toFixed(1);
+  if (Math.abs(value) >= 10) return value.toFixed(2);
+  return value.toFixed(3).replace(/\.?0+$/, '');
+};
+
+const FRIENDLY_FRACTIONS: Array<{ value: number; label: string }> = [
+  { value: 1 / 8, label: '1/8' },
+  { value: 1 / 6, label: '1/6' },
+  { value: 1 / 5, label: '1/5' },
+  { value: 1 / 4, label: '1/4' },
+  { value: 1 / 3, label: '1/3' },
+  { value: 3 / 8, label: '3/8' },
+  { value: 2 / 5, label: '2/5' },
+  { value: 1 / 2, label: '1/2' },
+  { value: 3 / 5, label: '3/5' },
+  { value: 5 / 8, label: '5/8' },
+  { value: 2 / 3, label: '2/3' },
+  { value: 3 / 4, label: '3/4' },
+  { value: 4 / 5, label: '4/5' },
+  { value: 5 / 6, label: '5/6' },
+  { value: 7 / 8, label: '7/8' },
+];
+
+const formatKitchenAmount = (value: number): string => {
+  const absoluteValue = Math.abs(value);
+  if (!Number.isFinite(absoluteValue)) return '0';
+  if (absoluteValue === 0) return '0';
+
+  const sign = value < 0 ? '-' : '';
+  const whole = Math.floor(absoluteValue);
+  const fractional = absoluteValue - whole;
+
+  let closestFraction = FRIENDLY_FRACTIONS[0];
+  let smallestDifference = Math.abs(fractional - closestFraction.value);
+
+  for (const fraction of FRIENDLY_FRACTIONS) {
+    const difference = Math.abs(fractional - fraction.value);
+    if (difference < smallestDifference) {
+      smallestDifference = difference;
+      closestFraction = fraction;
+    }
+  }
+
+  if (fractional < 0.02) {
+    return `${sign}${whole}`;
+  }
+
+  if (1 - fractional < 0.02) {
+    return `${sign}${whole + 1}`;
+  }
+
+  if (smallestDifference <= 0.02) {
+    if (whole === 0) {
+      return `${sign}${closestFraction.label}`;
+    }
+    return `${sign}${whole} ${closestFraction.label}`;
+  }
+
+  return `${sign}${formatValue(absoluteValue)}`;
+};
+
+const FRACTION_GLYPH_MAP: Record<string, string> = {
+  '1/8': '⅛',
+  '1/4': '¼',
+  '3/8': '⅜',
+  '1/2': '½',
+  '5/8': '⅝',
+  '3/4': '¾',
+  '7/8': '⅞',
+  '1/3': '⅓',
+  '2/3': '⅔',
+};
+
+const prettifyFractionDisplay = (value: string): string => {
+  const trimmedValue = value.trim();
+  const mixedMatch = trimmedValue.match(/^(-?\d+)\s+(\d+\/\d+)$/);
+  if (mixedMatch) {
+    const whole = mixedMatch[1];
+    const fraction = mixedMatch[2];
+    const glyph = FRACTION_GLYPH_MAP[fraction];
+    if (glyph) {
+      return `${whole}${glyph}`;
+    }
+    return trimmedValue;
+  }
+
+  const glyph = FRACTION_GLYPH_MAP[trimmedValue];
+  if (glyph) {
+    return glyph;
+  }
+
+  return trimmedValue;
+};
+
 export default function CookingConverterPage() {
   useEffect(() => {
     analytics.trackCalculatorView('cooking-converter');
   }, []);
   const [value, setValue] = useStickyState('cookingConverter-value', '1');
-  const [fromUnit, setFromUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb'>('cookingConverter-unit', 'cups');
-  const [toUnit, setToUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb'>('cookingConverter-toUnit', 'grams');
-  const [ingredient, setIngredient] = useStickyState('cookingConverter-ingredient', 'all-purpose flour');
+  const [fromUnit, setFromUnit] = useStickyState<CookingUnit>('cookingConverter-unit', 'cups');
+  const [toUnit, setToUnit] = useStickyState<CookingUnit>('cookingConverter-toUnit', 'tbsp');
 
   const parsedValue = parseAmount(value);
   const hasValueError = value.trim().length > 0 && Number.isNaN(parsedValue);
-
-  const result = convertCooking({
-    value: Number.isFinite(parsedValue) ? parsedValue : 0,
-    fromUnit,
-    toUnit,
-    ingredient,
-  });
+  const safeValue = Number.isFinite(parsedValue) ? parsedValue : 0;
+  const converted = (safeValue * unitToMl[fromUnit]) / unitToMl[toUnit];
+  const friendlyInput = prettifyFractionDisplay(formatKitchenAmount(safeValue));
+  const friendlyOutput = prettifyFractionDisplay(formatKitchenAmount(converted));
 
   const unitLabels: Record<string, string> = {
     cups: 'cups',
@@ -78,19 +178,16 @@ export default function CookingConverterPage() {
     tsp: 'tsp',
     ml: 'ml',
     flOz: 'fl oz',
-    grams: 'g',
-    oz: 'oz',
-    lb: 'lb',
   };
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Cooking Converter</h1>
-        <p className="text-gray-600">Convert between common cooking volume and weight units with ingredient-aware results</p>
+        <p className="text-gray-600">Convert common kitchen measurements quickly, like cups to tablespoons</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Card>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Conversion</h3>
           <div className="space-y-4">
@@ -106,90 +203,44 @@ export default function CookingConverterPage() {
             <Select
               label="From Unit"
               value={fromUnit}
-              onChange={(val) => setFromUnit(val as 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb')}
+              onChange={(val) => setFromUnit(val as CookingUnit)}
               options={[
                 { value: 'cups', label: 'Cups' },
                 { value: 'tbsp', label: 'Tablespoons (tbsp)' },
                 { value: 'tsp', label: 'Teaspoons (tsp)' },
-                { value: 'grams', label: 'Grams (g)' },
                 { value: 'ml', label: 'Milliliters (ml)' },
                 { value: 'flOz', label: 'Fluid Ounces (fl oz)' },
-                { value: 'oz', label: 'Ounces (oz)' },
-                { value: 'lb', label: 'Pounds (lb)' },
               ]}
             />
             <Select
               label="To Unit"
               value={toUnit}
-              onChange={(val) => setToUnit(val as 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb')}
+              onChange={(val) => setToUnit(val as CookingUnit)}
               options={[
                 { value: 'cups', label: 'Cups' },
                 { value: 'tbsp', label: 'Tablespoons (tbsp)' },
                 { value: 'tsp', label: 'Teaspoons (tsp)' },
-                { value: 'grams', label: 'Grams (g)' },
                 { value: 'ml', label: 'Milliliters (ml)' },
                 { value: 'flOz', label: 'Fluid Ounces (fl oz)' },
-                { value: 'oz', label: 'Ounces (oz)' },
-                { value: 'lb', label: 'Pounds (lb)' },
-              ]}
-            />
-            <Select
-              label="Ingredient"
-              value={ingredient}
-              onChange={(val) => setIngredient(val)}
-              options={[
-                { value: 'all-purpose flour', label: 'All-Purpose Flour' },
-                { value: 'sugar', label: 'Sugar' },
-                { value: 'butter', label: 'Butter' },
-                { value: 'milk', label: 'Milk' },
-                { value: 'water', label: 'Water' },
-                { value: 'honey', label: 'Honey' },
-                { value: 'oil', label: 'Oil' },
               ]}
             />
           </div>
         </Card>
 
-        <div>
+        <div className="space-y-4">
           <Card className="bg-blue-50">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Results</h3>
-            <div className="space-y-3">
-              <div className="bg-white p-4 rounded border border-blue-300">
-                <p className="text-sm text-gray-600">Converted ({toUnit})</p>
-                <p className="text-xl font-bold text-blue-700">{result.converted.toFixed(3)} {unitLabels[toUnit]}</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Cups</p>
-                <p className="text-lg font-semibold text-blue-600">{result.cups.toFixed(2)} cups</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Grams</p>
-                <p className="text-lg font-semibold text-blue-600">{result.grams.toFixed(1)} g</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Milliliters</p>
-                <p className="text-lg font-semibold text-blue-600">{result.ml.toFixed(1)} ml</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Fluid Ounces</p>
-                <p className="text-lg font-semibold text-blue-600">{result.flOz.toFixed(2)} fl oz</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Ounces</p>
-                <p className="text-lg font-semibold text-blue-600">{result.oz.toFixed(2)} oz</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Pounds</p>
-                <p className="text-lg font-semibold text-blue-600">{result.lb.toFixed(3)} lb</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Tablespoons</p>
-                <p className="text-lg font-semibold text-blue-600">{result.tbsp.toFixed(2)} tbsp</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Teaspoons</p>
-                <p className="text-lg font-semibold text-blue-600">{result.tsp.toFixed(2)} tsp</p>
-              </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">Result</h3>
+            <div className="rounded border border-blue-300 bg-white p-4">
+              <p className="text-sm text-gray-600 mb-1">You need</p>
+              <p className="text-2xl font-bold text-blue-700">
+                {friendlyOutput} {unitLabels[toUnit]}
+              </p>
+              <p className="mt-2 text-sm text-gray-600">
+                for {friendlyInput} {unitLabels[fromUnit]}
+              </p>
+              <p className="mt-1 text-sm font-medium text-gray-800">
+                {friendlyInput} {unitLabels[fromUnit]} = {friendlyOutput} {unitLabels[toUnit]}
+              </p>
             </div>
           </Card>
 
@@ -197,23 +248,17 @@ export default function CookingConverterPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid md:grid-cols-3 gap-4">
+      <div className="mt-6 grid md:grid-cols-2 gap-4">
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Cooking Tips</h3>
           <p className="text-sm text-gray-600">
-            Weight measurements (grams) are more accurate than volume for baking
+            For quick swaps, remember: 1 cup = 16 tbsp and 1 tbsp = 3 tsp
           </p>
         </Card>
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
           <p className="text-sm text-gray-600">
-            1 cup = 16 tbsp = 48 tsp = 237 ml ≈ 8 fl oz. Different ingredients have different densities
-          </p>
-        </Card>
-        <Card>
-          <h3 className="font-semibold mb-2 text-sm">Note</h3>
-          <p className="text-sm text-gray-600">
-            Flour density varies; these are standard conversions. Pack or spoon flour differently for accuracy
+            Use this when a recipe calls for one unit and your tools are labeled in another
           </p>
         </Card>
       </div>
@@ -221,13 +266,13 @@ export default function CookingConverterPage() {
       <Card>
         <h2 className="text-lg font-semibold mb-3">How Cooking Converter Works</h2>
         <p className="text-sm text-gray-600 mb-3">
-          This converter helps switch between cooking measurements with ingredient-specific calculations.
+          Enter an amount, pick the unit you have, then choose the unit your recipe needs.
         </p>
         <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
           <li>1 cup = 237 ml = 8 fl oz</li>
-          <li>Conversion factors vary by ingredient density</li>
-          <li>Weight measurements are more accurate than volume</li>
-          <li>Metric is standard in professional baking</li>
+          <li>1 cup = 16 tbsp</li>
+          <li>1 tbsp = 3 tsp</li>
+          <li>Supports fractions like 1/4 and mixed numbers like 1 1/2</li>
         </ul>
         <p className="text-xs text-gray-500 mt-4">Last updated: February 2026</p>
       </Card>
@@ -236,16 +281,16 @@ export default function CookingConverterPage() {
         <h2 className="text-lg font-semibold mb-3">Cooking Converter FAQ</h2>
         <div className="space-y-3 text-sm text-gray-700">
           <details className="rounded border border-slate-200 p-3 bg-white">
-            <summary className="font-medium cursor-pointer">Why do the same ingredients convert differently?</summary>
-            <p className="mt-2">Different ingredients have different densities. For example, sugar is denser than flour, so 1 cup weighs more.</p>
+            <summary className="font-medium cursor-pointer">How many tablespoons are in 1/4 cup?</summary>
+            <p className="mt-2">1/4 cup equals 4 tablespoons.</p>
           </details>
           <details className="rounded border border-slate-200 p-3 bg-white">
-            <summary className="font-medium cursor-pointer">Should I use grams or cups?</summary>
-            <p className="mt-2">For baking, grams are more precise. For cooking, cups are fine. A kitchen scale gives best results.</p>
+            <summary className="font-medium cursor-pointer">Can I enter fractions?</summary>
+            <p className="mt-2">Yes. You can enter values like 1/4, 1/2, and 1 1/2.</p>
           </details>
           <details className="rounded border border-slate-200 p-3 bg-white">
-            <summary className="font-medium cursor-pointer">Is a fl oz the same as regular ounces?</summary>
-            <p className="mt-2">No. Fluid ounces measure volume; regular ounces measure weight. For liquids, use fluid ounces.</p>
+            <summary className="font-medium cursor-pointer">Does this use volume or weight?</summary>
+            <p className="mt-2">This converter is focused on kitchen volume units (cups, tablespoons, teaspoons, milliliters, and fluid ounces).</p>
           </details>
         </div>
       </Card>
