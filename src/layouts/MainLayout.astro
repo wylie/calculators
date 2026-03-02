@@ -153,6 +153,72 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
         'allow_ad_personalization_signals': false
       });
     </script>
+    <script is:inline>
+      (function () {
+        if (typeof window === 'undefined') return;
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('ga_debug') !== '1') return;
+
+        const makeBadge = () => {
+          const existing = document.getElementById('ga-debug-badge');
+          if (existing) return existing;
+
+          if (!document.body) return null;
+
+          const badge = document.createElement('div');
+          badge.id = 'ga-debug-badge';
+          badge.setAttribute('aria-live', 'polite');
+          badge.style.position = 'fixed';
+          badge.style.top = '12px';
+          badge.style.right = '12px';
+          badge.style.zIndex = '9999';
+          badge.style.background = '#0f172a';
+          badge.style.color = '#e2e8f0';
+          badge.style.border = '1px solid #334155';
+          badge.style.borderRadius = '8px';
+          badge.style.padding = '8px 10px';
+          badge.style.fontSize = '11px';
+          badge.style.fontFamily = 'Inter, system-ui, sans-serif';
+          badge.style.lineHeight = '1.3';
+          badge.style.minWidth = '210px';
+          badge.style.boxShadow = '0 6px 18px rgba(0,0,0,0.25)';
+          document.body.appendChild(badge);
+          return badge;
+        };
+
+        const render = (badge) => {
+          if (!badge) return;
+          const stats = window.__gaDebugStats || {};
+          const gtagReady = typeof window.gtag === 'function';
+          const attempted = stats.attempted ?? 0;
+          const sent = stats.sent ?? 0;
+          const blockedNoGtag = stats.blockedNoGtag ?? 0;
+          const blockedDisabled = stats.blockedDisabled ?? 0;
+          const lastEvent = stats.lastEvent || 'none';
+
+          badge.innerHTML = [
+            '<strong style="color:#93c5fd">GA Debug</strong>',
+            `gtag: ${gtagReady ? 'ready' : 'missing'}`,
+            `sent: ${sent}/${attempted}`,
+            `blocked: ngtag=${blockedNoGtag}, off=${blockedDisabled}`,
+            `last: ${lastEvent}`,
+          ].join('<br>');
+        };
+
+        const mount = () => {
+          const badge = makeBadge();
+          if (!badge) return;
+          render(badge);
+          window.setInterval(() => render(badge), 2000);
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', mount, { once: true });
+        } else {
+          mount();
+        }
+      })();
+    </script>
 
     {allJsonLd.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />

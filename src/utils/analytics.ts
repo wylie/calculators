@@ -21,9 +21,30 @@ interface AnalyticsConfig {
   calculatorName?: string;
 }
 
+interface DebugStats {
+  attempted: number;
+  sent: number;
+  blockedNoGtag: number;
+  blockedDisabled: number;
+  lastEvent?: string;
+  lastEventAt?: string;
+  heartbeatStarted: boolean;
+}
+
 class AnalyticsManager {
   private config: AnalyticsConfig;
-  private gtag: any;
+  private debugStats: DebugStats;
+
+  private publishDebugStats(): void {
+    if (typeof window === 'undefined') return;
+    (window as any).__gaDebugStats = {
+      ...this.debugStats,
+      enabled: this.config.enabled,
+      gtagReady: this.getGtag() !== undefined,
+      calculatorName: this.config.calculatorName,
+      hostname: window.location.hostname,
+    };
+  }
 
   constructor() {
     // Initialize configuration
@@ -32,20 +53,69 @@ class AnalyticsManager {
     
     this.config = {
       debug: isDebugMode,
-      enabled: !isLocalhost && typeof window !== 'undefined' && (window as any).gtag !== undefined,
+      enabled: !isLocalhost && typeof window !== 'undefined',
       calculatorName: undefined,
     };
 
-    // Only access gtag on client side (SSR safe)
-    this.gtag = typeof window !== 'undefined' ? (window as any).gtag : undefined;
+    this.debugStats = {
+      attempted: 0,
+      sent: 0,
+      blockedNoGtag: 0,
+      blockedDisabled: 0,
+      heartbeatStarted: false,
+    };
+
+    this.publishDebugStats();
 
     if (this.config.debug && this.config.enabled) {
       console.log('[GA4 Analytics] Debug mode enabled. All events will be logged.');
+      this.startDebugHeartbeat();
     }
 
     if (isLocalhost) {
       console.log('[GA4 Analytics] Running on localhost - analytics disabled.');
     }
+
+    this.publishDebugStats();
+  }
+
+  /**
+   * Get current gtag reference (handles async script load timing)
+   */
+  private getGtag(): ((command: string, eventName: string, params?: EventParams) => void) | undefined {
+    if (typeof window === 'undefined') return undefined;
+    const gtag = (window as any).gtag;
+    return typeof gtag === 'function' ? gtag : undefined;
+  }
+
+  /**
+   * Debug-only heartbeat to quickly verify analytics pipeline health.
+   */
+  private startDebugHeartbeat(): void {
+    if (!this.config.debug || typeof window === 'undefined' || this.debugStats.heartbeatStarted) {
+      return;
+    }
+
+    this.debugStats.heartbeatStarted = true;
+
+    const logHeartbeat = (): void => {
+      const gtagReady = this.getGtag() !== undefined;
+      console.log('[GA4 Analytics] Heartbeat', {
+        enabled: this.config.enabled,
+        gtagReady,
+        hostname: window.location.hostname,
+        attempted: this.debugStats.attempted,
+        sent: this.debugStats.sent,
+        blockedNoGtag: this.debugStats.blockedNoGtag,
+        blockedDisabled: this.debugStats.blockedDisabled,
+        lastEvent: this.debugStats.lastEvent,
+        lastEventAt: this.debugStats.lastEventAt,
+      });
+      this.publishDebugStats();
+    };
+
+    logHeartbeat();
+    window.setInterval(logHeartbeat, 15000);
   }
 
   /**
@@ -73,9 +143,24 @@ class AnalyticsManager {
    * Internal method to send event to GA4
    */
   private sendEvent(eventName: string, params: EventParams = {}): void {
+    this.debugStats.attempted += 1;
+    this.publishDebugStats();
+
     if (!this.config.enabled) {
+      this.debugStats.blockedDisabled += 1;
+      this.publishDebugStats();
       if (this.config.debug && this.config.enabled === false && !this.isLocalhost()) {
-        console.log(`[GA4 Analytics] Event blocked (gtag not available): ${eventName}`, params);
+        console.log(`[GA4 Analytics] Event blocked (analytics disabled): ${eventName}`, params);
+      }
+      return;
+    }
+
+    const gtag = this.getGtag();
+    if (!gtag) {
+      this.debugStats.blockedNoGtag += 1;
+      this.publishDebugStats();
+      if (this.config.debug) {
+        console.log(`[GA4 Analytics] Event blocked (gtag not available yet): ${eventName}`, params);
       }
       return;
     }
@@ -91,7 +176,11 @@ class AnalyticsManager {
     }
 
     try {
-      this.gtag('event', eventName, enhancedParams);
+      gtag('event', eventName, enhancedParams);
+      this.debugStats.sent += 1;
+      this.debugStats.lastEvent = eventName;
+      this.debugStats.lastEventAt = new Date().toISOString();
+      this.publishDebugStats();
     } catch (error) {
       if (this.config.debug) {
         console.error('[GA4 Analytics] Error sending event:', error);
