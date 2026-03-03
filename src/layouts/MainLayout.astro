@@ -145,28 +145,68 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FY6764MTRQ"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-FY6764MTRQ', {
-        'anonymize_ip': true,
-        'allow_google_signals': false,
-        'allow_ad_personalization_signals': false
+      const gaParams = new URLSearchParams(window.location.search);
+      const gaDebugMode = gaParams.get('ga_debug') === '1';
+      const gaHealthMode = gaParams.get('ga_health') === '1' || gaDebugMode;
+
+      const gaHealth = window.__gaHealth || {
+        measurementId: 'G-FY6764MTRQ',
+        initializedAt: new Date().toISOString(),
+        callCount: 0,
+        configCount: 0,
+        pageViewCount: 0,
+        lastCommand: 'none',
+        lastCommandAt: undefined,
+        healthMode: gaHealthMode,
+      };
+      gaHealth.healthMode = gaHealthMode;
+      window.__gaHealth = gaHealth;
+
+      window.gtag = window.gtag || function () {
+        window.dataLayer.push(arguments);
+
+        const command = arguments[0];
+        const eventName = arguments[1];
+        gaHealth.callCount += 1;
+        gaHealth.lastCommand = `${command}${eventName ? `:${eventName}` : ''}`;
+        gaHealth.lastCommandAt = new Date().toISOString();
+        if (command === 'config') {
+          gaHealth.configCount += 1;
+        }
+        if (command === 'event' && eventName === 'page_view') {
+          gaHealth.pageViewCount += 1;
+        }
+      };
+
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-FY6764MTRQ', {
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        debug_mode: gaDebugMode,
+      });
+
+      window.gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
       });
     </script>
     <script is:inline>
       (function () {
         if (typeof window === 'undefined') return;
         const params = new URLSearchParams(window.location.search);
-        if (params.get('ga_debug') !== '1') return;
+        const healthEnabled = params.get('ga_health') === '1' || params.get('ga_debug') === '1';
+        if (!healthEnabled) return;
 
         const makeBadge = () => {
-          const existing = document.getElementById('ga-debug-badge');
+          const existing = document.getElementById('ga-health-badge');
           if (existing) return existing;
 
           if (!document.body) return null;
 
           const badge = document.createElement('div');
-          badge.id = 'ga-debug-badge';
+          badge.id = 'ga-health-badge';
           badge.setAttribute('aria-live', 'polite');
           badge.style.position = 'fixed';
           badge.style.top = '12px';
@@ -188,20 +228,30 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
 
         const render = (badge) => {
           if (!badge) return;
+          const health = window.__gaHealth || {};
           const stats = window.__gaDebugStats || {};
           const gtagReady = typeof window.gtag === 'function';
+          const hasTagManager = !!window.google_tag_manager;
+          const dataLayerLength = Array.isArray(window.dataLayer) ? window.dataLayer.length : 0;
           const attempted = stats.attempted ?? 0;
           const sent = stats.sent ?? 0;
           const blockedNoGtag = stats.blockedNoGtag ?? 0;
           const blockedDisabled = stats.blockedDisabled ?? 0;
           const lastEvent = stats.lastEvent || 'none';
+          const healthLastCommand = health.lastCommand || 'none';
+          const configCount = health.configCount ?? 0;
+          const pageViewCount = health.pageViewCount ?? 0;
+          const gtagStatus = gtagReady ? (hasTagManager ? 'ready' : 'stub') : 'missing';
 
           badge.innerHTML = [
-            '<strong style="color:#93c5fd">GA Debug</strong>',
-            `gtag: ${gtagReady ? 'ready' : 'missing'}`,
+            '<strong style="color:#93c5fd">GA Health (temporary)</strong>',
+            `stream: G-FY6764MTRQ`,
+            `gtag: ${gtagStatus}`,
+            `dlayer: ${dataLayerLength}`,
+            `config/page_view: ${configCount}/${pageViewCount}`,
             `sent: ${sent}/${attempted}`,
             `blocked: ngtag=${blockedNoGtag}, off=${blockedDisabled}`,
-            `last: ${lastEvent}`,
+            `last cmd/event: ${healthLastCommand} / ${lastEvent}`,
           ].join('<br>');
         };
 
