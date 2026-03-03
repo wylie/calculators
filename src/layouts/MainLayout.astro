@@ -97,6 +97,7 @@ if (isToolPage) {
 
 const pageJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const allJsonLd = [...baseJsonLd, ...pageJsonLd];
+const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
@@ -269,6 +270,15 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
         }
       })();
     </script>
+
+    <!-- Cloudflare Web Analytics (optional) -->
+    {import.meta.env.PROD && cloudflareWebAnalyticsToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cloudflareWebAnalyticsToken })}
+      ></script>
+    )}
 
     {allJsonLd.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -150,6 +150,27 @@ This project includes **Google Analytics 4 (GA4)** configured with your measurem
 - Analytics module is in [src/utils/analytics.ts](src/utils/analytics.ts)
 - All analytics are privacy-first: **no PII (personally identifiable information) is collected**
 
+### Cloudflare Web Analytics (Optional)
+
+This project also supports **Cloudflare Web Analytics** as a secondary traffic source.
+
+1. In Cloudflare, create a Web Analytics site and copy your token.
+2. Create a local env file:
+
+```bash
+cp .env.example .env
+```
+
+3. Set your token:
+
+```bash
+PUBLIC_CF_WEB_ANALYTICS_TOKEN=your_cloudflare_token_here
+```
+
+4. Deploy. The beacon script is loaded automatically in production when the token is present.
+
+Implementation location: [src/layouts/MainLayout.astro](src/layouts/MainLayout.astro)
+
 ### Events Tracked
 
 The analytics module tracks the following meaningful events:
