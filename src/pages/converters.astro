@@ -1,5 +1,6 @@
 ---
 import RelatedTools from '../components/RelatedTools.tsx';
+import AffiliateBox from '../components/AffiliateBox';
 import MainLayout from '../layouts/MainLayout.astro';
 import ConvertersPage from '../react-pages/Categories/ConvertersPage';
 ---
@@ -7,6 +8,7 @@ import ConvertersPage from '../react-pages/Categories/ConvertersPage';
 <MainLayout
   title="Converters"
   description="Quick and accurate unit converters for temperature, weight, length, speed, volume, time, percentages, and more."
+  showAffiliate={false}
 >
 
   <ConvertersPage client:load />
@@ -21,4 +23,5 @@ import ConvertersPage from '../react-pages/Categories/ConvertersPage';
       { path: '/file-size', title: 'File Size Converter', icon: 'storage' },
     ]}
   />
+  <AffiliateBox pageUrl={Astro.url.pathname} client:load />
 </MainLayout>

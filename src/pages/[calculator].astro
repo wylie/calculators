@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import AffiliateBox from '../components/AffiliateBox';
 import GeneratedCalculatorPage from '../react-pages/Generated/GeneratedCalculatorPage';
 import { generatedCalculators, generatedCalculatorBySlug } from '../react-pages/Generated/generatedCalculatorData';
 
@@ -33,6 +34,7 @@ const faqSchema = {
 };
 ---
 
-<MainLayout title={resolvedCalculator.title} description={resolvedCalculator.description} jsonLd={faqSchema}>
+<MainLayout title={resolvedCalculator.title} description={resolvedCalculator.description} jsonLd={faqSchema} showAffiliate={false}>
   <GeneratedCalculatorPage calculatorSlug={resolvedCalculator.slug} client:load />
+  <AffiliateBox pageUrl={Astro.url.pathname} client:load />
 </MainLayout>
