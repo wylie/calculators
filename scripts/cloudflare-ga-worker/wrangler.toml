@@ -1,0 +1,13 @@
+name = "simplecalculators-ga4-edge-mirror"
+main = "src/index.js"
+compatibility_date = "2026-03-02"
+workers_dev = true
+
+[vars]
+GA4_MEASUREMENT_ID = "G-7Z9DM31C5W"
+SITE_HOSTNAME = "simplecalculators.io"
+EVENT_NAME = "edge_request"
+INCLUDE_ASSETS = "false"
+RESPECT_DNT = "true"
+CLIENT_ID_COOKIE_NAME = "_ga_edge_cid"
+CLIENT_ID_COOKIE_MAX_AGE = "63072000"

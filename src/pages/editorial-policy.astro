@@ -1,0 +1,52 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Editorial Policy"
+  description="Read the editorial standards Simple Calculators uses for calculator content, assumptions, updates, and corrections."
+>
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-3xl font-bold text-slate-900 mb-2">Editorial Policy</h1>
+      <p class="text-slate-600">
+        This page explains how calculator content is prepared, reviewed, and updated on Simple Calculators.
+      </p>
+    </div>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Content standards</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+        <li>We prioritize clarity, practical usefulness, and transparent assumptions.</li>
+        <li>Each major calculator page should explain method, limits, and suitable use cases.</li>
+        <li>We avoid publishing pages that are only minor wording variations of existing tools.</li>
+      </ul>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">How updates happen</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+        <li>We review formulas and assumptions when calculators are revised.</li>
+        <li>We update copy when guidance becomes unclear or potentially misleading.</li>
+        <li>We periodically add worked examples and edge-case notes based on user feedback.</li>
+      </ul>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Corrections policy</h2>
+      <p class="text-sm text-slate-600">
+        If you notice an issue, email us at
+        <a href="mailto:hello@simplecalculators.io" class="text-blue-600 hover:text-blue-700 underline ml-1">hello@simplecalculators.io</a>.
+        We review reported errors and publish corrections as quickly as practical.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Independence and monetization</h2>
+      <p class="text-sm text-slate-600">
+        We may use advertising and affiliate links to support operations. Monetization does not change calculation formulas,
+        recommendations, or disclosure of assumptions.
+      </p>
+    </section>
+  </div>
+</MainLayout>

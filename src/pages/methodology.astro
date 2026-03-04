@@ -1,0 +1,51 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Methodology"
+  description="Understand the formulas, assumptions, and limitations used across Simple Calculators tools."
+>
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-3xl font-bold text-slate-900 mb-2">Methodology</h1>
+      <p class="text-slate-600">
+        We publish concise methodology notes so users can understand what each estimate represents and what it does not.
+      </p>
+    </div>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Financial calculators</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+        <li>Loan and mortgage tools use standard amortization equations based on principal, APR, and term.</li>
+        <li>Investment tools use periodic compounding assumptions with user-provided contribution schedules.</li>
+        <li>Debt payoff tools estimate timeline and interest from balance, APR, and payment behavior.</li>
+      </ul>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Health calculators</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+        <li>Calorie tools use established equations such as Mifflin-St Jeor where applicable.</li>
+        <li>Outputs are population-level estimates and may differ from clinical or lab measurements.</li>
+      </ul>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Converters and utility tools</h2>
+      <p class="text-sm text-slate-600">
+        Conversion calculators use deterministic unit conversion factors. Small differences may occur due to rounding,
+        display precision, or user input formatting.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Limitations</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+        <li>Calculator results are informational estimates, not professional advice.</li>
+        <li>Tax rules, lender terms, fees, regional laws, and personal health factors can materially change outcomes.</li>
+        <li>Users should verify critical decisions with qualified professionals.</li>
+      </ul>
+    </section>
+  </div>
+</MainLayout>

@@ -1,0 +1,58 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="About Simple Calculators"
+  description="Learn who runs Simple Calculators, why we build calculator tools, and how we maintain quality, usability, and transparent assumptions."
+>
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-3xl font-bold text-slate-900 mb-2">About Simple Calculators</h1>
+      <p class="text-slate-600">
+        Simple Calculators is an independent project focused on practical, easy-to-use calculator tools for everyday
+        financial, health, and conversion questions.
+      </p>
+    </div>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Our mission</h2>
+      <p class="text-sm text-slate-600">
+        We build calculators that are fast, mobile-friendly, and understandable. Each tool is designed to show clear
+        inputs and outputs without unnecessary complexity.
+      </p>
+      <p class="text-sm text-slate-600">
+        Our goal is to help people make better first-pass estimates before they speak with a licensed professional.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">How we maintain quality</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+        <li>We publish formula assumptions and limitations on key calculator pages.</li>
+        <li>We review edge cases where estimates can become misleading.</li>
+        <li>We update pages when formulas, guidance, or usability issues are identified.</li>
+        <li>We keep tools free and accessible without requiring an account.</li>
+      </ul>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Important disclaimer</h2>
+      <p class="text-sm text-slate-600">
+        Calculator outputs are estimates and educational guidance only. They are not legal, tax, financial, medical,
+        or investment advice.
+      </p>
+      <p class="text-sm text-slate-600">
+        For decisions involving money, health, or legal obligations, confirm details with a qualified professional.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-lg font-semibold text-slate-900">Contact</h2>
+      <p class="text-sm text-slate-600">
+        Questions, corrections, or suggestions are welcome at
+        <a href="mailto:hello@simplecalculators.io" class="text-blue-600 hover:text-blue-700 underline ml-1">hello@simplecalculators.io</a>.
+      </p>
+    </section>
+  </div>
+</MainLayout>

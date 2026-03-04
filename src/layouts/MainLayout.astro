@@ -98,6 +98,7 @@ if (isToolPage) {
 const pageJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const allJsonLd = [...baseJsonLd, ...pageJsonLd];
 const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-7Z9DM31C5W';
 ---
 
 <!doctype html>
@@ -143,15 +144,15 @@ const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKE
     )}
     
     <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FY6764MTRQ"></script>
-    <script is:inline>
+    {gaMeasurementId && <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>}
+    <script is:inline define:vars={{ gaMeasurementId }}>
       window.dataLayer = window.dataLayer || [];
       const gaParams = new URLSearchParams(window.location.search);
       const gaDebugMode = gaParams.get('ga_debug') === '1';
       const gaHealthMode = gaParams.get('ga_health') === '1' || gaDebugMode;
 
       const gaHealth = window.__gaHealth || {
-        measurementId: 'G-FY6764MTRQ',
+        measurementId: gaMeasurementId,
         initializedAt: new Date().toISOString(),
         callCount: 0,
         configCount: 0,
@@ -180,7 +181,7 @@ const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKE
       };
 
       window.gtag('js', new Date());
-      window.gtag('config', 'G-FY6764MTRQ', {
+      window.gtag('config', gaMeasurementId, {
         anonymize_ip: true,
         allow_google_signals: false,
         allow_ad_personalization_signals: false,
@@ -193,7 +194,7 @@ const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKE
         page_path: window.location.pathname,
       });
     </script>
-    <script is:inline>
+    <script is:inline define:vars={{ gaMeasurementId }}>
       (function () {
         if (typeof window === 'undefined') return;
         const params = new URLSearchParams(window.location.search);
@@ -246,7 +247,7 @@ const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKE
 
           badge.innerHTML = [
             '<strong style="color:#93c5fd">GA Health (temporary)</strong>',
-            `stream: G-FY6764MTRQ`,
+            `stream: ${gaMeasurementId}`,
             `gtag: ${gtagStatus}`,
             `dlayer: ${dataLayerLength}`,
             `config/page_view: ${configCount}/${pageViewCount}`,
@@ -302,6 +303,9 @@ const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKE
             personalized guidance.
           </p>
           <div class="flex flex-wrap items-center justify-center gap-3 mb-2">
+            <a href="/about" class="text-xs text-slate-600 hover:text-slate-900 underline">About</a>
+            <a href="/editorial-policy" class="text-xs text-slate-600 hover:text-slate-900 underline">Editorial Policy</a>
+            <a href="/methodology" class="text-xs text-slate-600 hover:text-slate-900 underline">Methodology</a>
             <a href="/privacy" class="text-xs text-slate-600 hover:text-slate-900 underline">Privacy Policy</a>
             <a href="/terms" class="text-xs text-slate-600 hover:text-slate-900 underline">Terms</a>
             <a href="/accessibility" class="text-xs text-slate-600 hover:text-slate-900 underline">Accessibility</a>

@@ -40,4 +40,48 @@ const faqSchema = {
   jsonLd={faqSchema}
 >
   <BudgetPage client:load />
+
+  <section class="mt-8 space-y-6" aria-label="Budget calculator methodology and guidance">
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-xl font-semibold text-slate-900">Methodology</h2>
+      <p class="text-sm text-slate-600">
+        The calculator sums monthly income and expenses, then reports remaining cash flow and savings rate. Savings
+        rate is estimated as remaining amount divided by monthly income.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Assumptions</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Income and expenses are entered as monthly averages.</li>
+        <li>Large irregular costs are either prorated monthly or tracked separately.</li>
+        <li>Inputs represent net cash flow after taxes unless noted otherwise.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Worked example</h2>
+      <p class="text-sm text-slate-600">
+        Example: monthly net income of $5,000 and total expenses of $3,900 leaves $1,100 remaining. Estimated savings
+        rate is 22% ($1,100 ÷ $5,000).
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Edge cases and limitations</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Variable income and seasonal spending can make a single-month view misleading.</li>
+        <li>Annual bills (insurance, tuition, taxes) should be spread across months for better accuracy.</li>
+        <li>Debt payoff strategies may require a separate payoff model beyond simple cash flow.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">When this calculator is not appropriate</h2>
+      <p class="text-sm text-slate-600">
+        This tool is not a full accounting system and does not replace professional tax planning. Use bookkeeping software
+        and a tax advisor for business finances, payroll, or compliance reporting.
+      </p>
+    </article>
+  </section>
 </MainLayout>

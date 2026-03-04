@@ -40,4 +40,47 @@ const faqSchema = {
   jsonLd={faqSchema}
 >
   <RetirementPage client:load />
+
+  <section class="mt-8 space-y-6" aria-label="Retirement calculator methodology and guidance">
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-xl font-semibold text-slate-900">Methodology</h2>
+      <p class="text-sm text-slate-600">
+        Retirement value is projected from current savings, recurring contributions, expected growth rate, and years
+        until retirement. A 4% withdrawal estimate is shown as a starting income benchmark.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Assumptions</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Contribution levels remain consistent over time.</li>
+        <li>Average return and inflation assumptions are stable.</li>
+        <li>The 4% rule is used as a general planning heuristic, not a guarantee.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Worked example</h2>
+      <p class="text-sm text-slate-600">
+        Example: age 35, retire at 67, current savings $80,000, monthly contribution $700, expected return 6.5%. The
+        tool projects retirement balance and a preliminary annual income estimate using 4% of projected assets.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Edge cases and limitations</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Sequence risk and market drawdowns near retirement are not modeled in detail.</li>
+        <li>Healthcare costs, taxes, and Social Security claiming choices can significantly change outcomes.</li>
+        <li>Early retirement plans may need lower withdrawal rates and larger buffers.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">When this calculator is not appropriate</h2>
+      <p class="text-sm text-slate-600">
+        It is not a substitute for fiduciary retirement planning, tax strategy, or estate planning advice.
+      </p>
+    </article>
+  </section>
 </MainLayout>

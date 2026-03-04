@@ -50,10 +50,11 @@ class AnalyticsManager {
     // Initialize configuration
     const isLocalhost = this.isLocalhost();
     const isDebugMode = this.isDebugMode();
+    const localAnalyticsEnabled = this.isLocalAnalyticsEnabled();
     
     this.config = {
       debug: isDebugMode,
-      enabled: !isLocalhost && typeof window !== 'undefined',
+      enabled: typeof window !== 'undefined' && (!isLocalhost || localAnalyticsEnabled),
       calculatorName: undefined,
     };
 
@@ -72,8 +73,12 @@ class AnalyticsManager {
       this.startDebugHeartbeat();
     }
 
-    if (isLocalhost) {
-      console.log('[GA4 Analytics] Running on localhost - analytics disabled.');
+    if (isLocalhost && !localAnalyticsEnabled) {
+      console.log('[GA4 Analytics] Running on localhost - analytics disabled. Add ?ga_local=1 to enable for testing.');
+    }
+
+    if (isLocalhost && localAnalyticsEnabled && this.config.debug) {
+      console.log('[GA4 Analytics] Local analytics override enabled via ?ga_local=1');
     }
 
     this.publishDebugStats();
@@ -137,6 +142,15 @@ class AnalyticsManager {
     if (typeof window === 'undefined') return false;
     const params = new URLSearchParams(window.location.search);
     return params.get('ga_debug') === '1';
+  }
+
+  /**
+   * Allow local analytics testing with ?ga_local=1
+   */
+  private isLocalAnalyticsEnabled(): boolean {
+    if (typeof window === 'undefined') return false;
+    const params = new URLSearchParams(window.location.search);
+    return params.get('ga_local') === '1';
   }
 
   /**

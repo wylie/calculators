@@ -144,11 +144,12 @@ See [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) for the deplo
 
 ### GA4 Setup
 
-This project includes **Google Analytics 4 (GA4)** configured with your measurement ID: **G-FY6764MTRQ**.
+This project includes **Google Analytics 4 (GA4)** configured with your measurement ID: **G-7Z9DM31C5W**.
 
 - GA4 script is loaded on every page in [src/layouts/MainLayout.astro](src/layouts/MainLayout.astro)
 - Analytics module is in [src/utils/analytics.ts](src/utils/analytics.ts)
 - All analytics are privacy-first: **no PII (personally identifiable information) is collected**
+- You can override the GA4 stream via env var: `PUBLIC_GA_MEASUREMENT_ID`
 
 ### Cloudflare Web Analytics (Optional)
 
@@ -164,12 +165,35 @@ cp .env.example .env
 3. Set your token:
 
 ```bash
+PUBLIC_GA_MEASUREMENT_ID=G-7Z9DM31C5W
 PUBLIC_CF_WEB_ANALYTICS_TOKEN=your_cloudflare_token_here
 ```
 
 4. Deploy. The beacon script is loaded automatically in production when the token is present.
 
 Implementation location: [src/layouts/MainLayout.astro](src/layouts/MainLayout.astro)
+
+### Cloudflare Worker GA4 Edge Mirror (Recommended for request-level parity)
+
+If you want GA4 to include traffic that Cloudflare sees (including requests where JS never runs), deploy the worker in [scripts/cloudflare-ga-worker](scripts/cloudflare-ga-worker).
+
+This worker sends one GA4 Measurement Protocol event per request (`edge_request`), while keeping your existing browser GA tracking.
+
+Quick setup:
+
+```bash
+cd scripts/cloudflare-ga-worker
+npm i -D wrangler
+npx wrangler login
+npx wrangler secret put GA4_API_SECRET
+npx wrangler deploy
+```
+
+Then add a Cloudflare Worker route:
+
+- `simplecalculators.io/*`
+
+Full setup and configuration details are in [scripts/cloudflare-ga-worker/README.md](scripts/cloudflare-ga-worker/README.md).
 
 ### Events Tracked
 
@@ -322,6 +346,12 @@ Console will show:
 ```
 [GA4 Analytics] Event: calculator_view {calculator_name: "mortgage"}
 [GA4 Analytics] Event: calculator_input_change {calculator_name: "mortgage", field_name: "home_price"}
+```
+
+To test custom analytics events on localhost, add `?ga_local=1`:
+
+```
+http://localhost:4321/mortgage?ga_debug=1&ga_local=1
 ```
 
 #### Option 3: Browser DevTools

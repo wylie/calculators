@@ -39,4 +39,47 @@ const faqSchema = {
   jsonLd={faqSchema}
 >
   <NetWorthPage client:load />
+
+  <section class="mt-8 space-y-6" aria-label="Net worth methodology and guidance">
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-xl font-semibold text-slate-900">Methodology</h2>
+      <p class="text-sm text-slate-600">
+        Net worth is calculated as total assets minus total liabilities. Assets can include cash, investments, and
+        property value; liabilities include all outstanding debts and obligations.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Assumptions</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Values are current point-in-time estimates.</li>
+        <li>Asset values are entered at reasonable market estimates.</li>
+        <li>Debt balances reflect current payoff amounts where possible.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Worked example</h2>
+      <p class="text-sm text-slate-600">
+        Example: $210,000 total assets and $145,000 total liabilities results in net worth of $65,000. Tracking this
+        monthly or quarterly helps identify long-term financial progress.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Edge cases and limitations</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Illiquid assets (private business, collectibles) can be difficult to value consistently.</li>
+        <li>Market swings may cause short-term volatility in reported net worth.</li>
+        <li>Joint assets and shared liabilities may require prorating for personal planning.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">When this calculator is not appropriate</h2>
+      <p class="text-sm text-slate-600">
+        This summary does not replace a full balance sheet, credit analysis, or wealth-planning review with a qualified professional.
+      </p>
+    </article>
+  </section>
 </MainLayout>

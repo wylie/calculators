@@ -40,4 +40,47 @@ const faqSchema = {
   jsonLd={faqSchema}
 >
   <AutoLoanPage client:load />
+
+  <section class="mt-8 space-y-6" aria-label="Auto loan calculator methodology and guidance">
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
+      <h2 class="text-xl font-semibold text-slate-900">Methodology</h2>
+      <p class="text-sm text-slate-600">
+        Monthly payment is estimated using a fixed-rate amortization schedule from financed amount, APR, and loan term.
+        Total paid is monthly payment multiplied by number of payments, and total interest is total paid minus principal.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Assumptions</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Rate stays fixed and payments are made monthly.</li>
+        <li>No missed payments, late fees, or prepayment penalties are included.</li>
+        <li>Taxes, registration, insurance, and dealer add-ons are excluded unless you include them in amount financed.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Worked example</h2>
+      <p class="text-sm text-slate-600">
+        Example: $35,000 vehicle price with $5,000 down means $30,000 financed. At 7% APR for 60 months, the calculator
+        estimates a monthly payment and corresponding total interest over the full term.
+      </p>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">Edge cases and limitations</h2>
+      <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
+        <li>Negative equity roll-in from a trade-in can materially increase real cost.</li>
+        <li>Very long terms may lower monthly payment while increasing total interest significantly.</li>
+        <li>Promotional rates may require conditions not captured in this estimate.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-2">
+      <h2 class="text-xl font-semibold text-slate-900">When this calculator is not appropriate</h2>
+      <p class="text-sm text-slate-600">
+        Use final lender disclosures for purchase decisions. This tool is best for comparing scenarios before applying.
+      </p>
+    </article>
+  </section>
 </MainLayout>
