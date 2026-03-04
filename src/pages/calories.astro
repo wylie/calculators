@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import CaloriesPage from '../react-pages/Calories/CaloriesPage';
+import AffiliateBox from '../components/AffiliateBox';
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -37,8 +38,10 @@ const faqSchema = {
   title="Calorie Calculator"
   description="Calculate BMR, TDEE, and daily calorie targets for maintenance, weight loss, or weight gain using Mifflin-St Jeor."
   jsonLd={faqSchema}
+  showAffiliate={false}
 >
   <CaloriesPage client:load />
+  <AffiliateBox pageUrl={Astro.url.pathname} client:load />
 
   <section class="mt-8 space-y-6" aria-label="Calorie calculator methodology and guidance">
     <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">

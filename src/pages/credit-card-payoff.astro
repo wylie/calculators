@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import CreditCardPayoffPage from '../react-pages/CreditCardPayoff/CreditCardPayoffPage';
+import AffiliateBox from '../components/AffiliateBox';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -38,8 +39,10 @@ const faqSchema = {
   title="Credit Card Payoff"
   description="Estimate credit card payoff timeline, total interest, and total paid based on balance, APR, and monthly payment."
   jsonLd={faqSchema}
+  showAffiliate={false}
 >
   <CreditCardPayoffPage client:load />
+  <AffiliateBox pageUrl={Astro.url.pathname} client:load />
 
   <section class="mt-8 space-y-6" aria-label="Credit card payoff methodology and guidance">
     <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">

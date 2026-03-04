@@ -11,11 +11,12 @@ interface Props {
   image?: string;
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  showAffiliate?: boolean;
 }
 
 const siteUrl = 'https://simplecalculators.io';
 const siteName = 'Simple Calculators';
-const { title, description, canonical, image, noindex = false, jsonLd } = Astro.props;
+const { title, description, canonical, image, noindex = false, jsonLd, showAffiliate = true } = Astro.props;
 const canonicalUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
 const defaultDescription = 'Free online calculators and converters for mortgage, budget, weather, calories, and more. Simple, accurate, and easy to use.';
 const pageDescription = description || defaultDescription;
@@ -292,7 +293,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-7Z9DM31C5
       </header>
       <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
         <slot />
-        <AffiliateBox pageUrl={Astro.url.pathname} client:load />
+        {showAffiliate && <AffiliateBox pageUrl={Astro.url.pathname} client:load />}
       </main>
       <ConsentBanner />
       <footer class="border-t border-slate-200 bg-white py-6 mt-12">

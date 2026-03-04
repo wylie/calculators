@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import InvestmentGrowthPage from '../react-pages/InvestmentGrowth/InvestmentGrowthPage';
+import AffiliateBox from '../components/AffiliateBox';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -38,8 +39,10 @@ const faqSchema = {
   title="Investment Growth"
   description="Estimate future investment value with compound growth, monthly contributions, expected returns, and time horizon."
   jsonLd={faqSchema}
+  showAffiliate={false}
 >
   <InvestmentGrowthPage client:load />
+  <AffiliateBox pageUrl={Astro.url.pathname} client:load />
 
   <section class="mt-8 space-y-6" aria-label="Investment growth methodology and guidance">
     <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">

@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import RefinancePage from '../react-pages/Refinance/RefinancePage';
+import AffiliateBox from '../components/AffiliateBox';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -38,8 +39,10 @@ const faqSchema = {
   title="Refinance Calculator"
   description="Compare current mortgage terms vs refinance options, estimate monthly savings, break-even period, and total net savings."
   jsonLd={faqSchema}
+  showAffiliate={false}
 >
   <RefinancePage client:load />
+  <AffiliateBox pageUrl={Astro.url.pathname} client:load />
 
   <section class="mt-8 space-y-6" aria-label="Refinance calculator methodology and guidance">
     <article class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm space-y-3">
