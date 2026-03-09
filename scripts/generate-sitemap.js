@@ -113,6 +113,11 @@ const routes = Array.from(routeSet)
   .sort((left, right) => left.localeCompare(right))
   .map((routePath) => ({ path: routePath, ...getRouteMeta(routePath) }));
 
+const toCanonicalPath = (routePath) => {
+  if (routePath === '/') return '/';
+  return routePath.endsWith('/') ? routePath : `${routePath}/`;
+};
+
 // Generate sitemap XML
 function generateSitemap() {
   const xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -122,7 +127,7 @@ function generateSitemap() {
   const urlEntries = routes
     .map(
       (route) => `  <url>
-    <loc>${DOMAIN}${route.path}</loc>
+    <loc>${DOMAIN}${toCanonicalPath(route.path)}</loc>
     <lastmod>${TODAY}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
     <priority>${route.priority}</priority>
