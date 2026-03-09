@@ -37,11 +37,6 @@ const baseJsonLd: Array<Record<string, unknown>> = [
     '@type': 'WebSite',
     name: siteName,
     url: `${siteUrl}/`,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${siteUrl}/?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
   },
   {
     '@context': 'https://schema.org',
