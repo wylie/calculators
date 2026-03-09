@@ -5,7 +5,9 @@ import GeneratedCalculatorPage from '../react-pages/Generated/GeneratedCalculato
 import { generatedCalculators, generatedCalculatorBySlug } from '../react-pages/Generated/generatedCalculatorData';
 
 export function getStaticPaths() {
-  return generatedCalculators.map((calculator) => ({
+  return generatedCalculators
+    .filter((calculator) => !calculator.slug.includes('[') && !calculator.slug.includes(']'))
+    .map((calculator) => ({
     params: {
       calculator: calculator.slug,
     },

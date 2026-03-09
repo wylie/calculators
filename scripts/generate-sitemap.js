@@ -77,7 +77,10 @@ const getRouteMeta = (routePath) => {
 };
 
 const getStaticPageRoutes = () => {
-  const files = fs.readdirSync(pagesDir).filter((fileName) => fileName.endsWith('.astro'));
+  const files = fs
+    .readdirSync(pagesDir)
+    .filter((fileName) => fileName.endsWith('.astro'))
+    .filter((fileName) => !fileName.includes('['));
 
   return files
     .map((fileName) => {
@@ -96,7 +99,8 @@ const getGeneratedCalculatorRoutes = () => {
 
   while ((match = slugRegex.exec(content)) !== null) {
     const routePath = `/${match[1]}`;
-    if (!redirectedLegacyRoutes.has(routePath)) {
+    const isDynamicPlaceholder = routePath.includes('[') || routePath.includes(']');
+    if (!redirectedLegacyRoutes.has(routePath) && !isDynamicPlaceholder) {
       routes.add(routePath);
     }
   }

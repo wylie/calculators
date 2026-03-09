@@ -4511,7 +4511,11 @@ const withContentAndRelated = (config: Omit<GeneratedCalculatorConfig, 'relatedT
   };
 };
 
-export const generatedCalculators: GeneratedCalculatorConfig[] = [...baseGeneratedCalculators, ...additionalGeneratedCalculators].map(withContentAndRelated);
+const isIndexableSlug = (slug: string) => !slug.includes('[') && !slug.includes(']');
+
+export const generatedCalculators: GeneratedCalculatorConfig[] = [...baseGeneratedCalculators, ...additionalGeneratedCalculators]
+  .map(withContentAndRelated)
+  .filter((calculator) => isIndexableSlug(calculator.slug));
 
 export const generatedCalculatorBySlug: Record<string, GeneratedCalculatorConfig> = generatedCalculators.reduce<Record<string, GeneratedCalculatorConfig>>((acc, calculator) => {
   acc[calculator.slug] = calculator;
