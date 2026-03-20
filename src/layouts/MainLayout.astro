@@ -134,11 +134,6 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-7Z9DM31C5
       rel="stylesheet"
     />
     
-    <!-- Google AdSense -->
-    {import.meta.env.PROD && (
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1766867001144344" crossorigin="anonymous"></script>
-    )}
-    
     <!-- Google Analytics 4 -->
     {gaMeasurementId && <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>}
     <script is:inline define:vars={{ gaMeasurementId }}>

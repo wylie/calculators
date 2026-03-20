@@ -41,7 +41,7 @@ src/
 │   ├── Input.tsx         # Text input with validation
 │   ├── Select.tsx        # Select/dropdown
 │   ├── Toggle.tsx        # Toggle switch
-│   ├── AdSlot.tsx        # AdSense placeholder
+│   ├── AdSlot.tsx        # Monetag ad placeholder
 │   ├── AffiliateBox.tsx  # Affiliate link component
 │   └── NavAstro.tsx      # Hydrated navigation island
 ├── layouts/
@@ -103,24 +103,12 @@ Calculate gear inches and speed estimates for cycling.
 - Outputs: gear ratio, gear inches, speed in MPH
 - Preset combo comparison
 
-## Adding AdSense
+## Ad Setup
 
-To add real AdSense support:
+This project uses Monetag ad placeholders:
 
-1. Open `src/components/AdSlot.tsx`
-2. Replace the placeholder div with your AdSense script tag:
-
-```tsx
-export default function AdSlot() {
-  return (
-    <>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxxxxxx"
-        crossOrigin="anonymous"></script>
-      {/* Ad unit code */}
-    </>
-  );
-}
-```
+1. Ad containers are rendered by `src/components/AdSlot.tsx`
+2. Monetag verification/service worker file is served from `public/sw.js`
 
 ## Deployment
 
@@ -389,10 +377,10 @@ analytics.trackCustomEvent('my-calculator', 'custom_value');
 
 ## Monetization
 
-### AdSense
+### Display Ads (Monetag)
 
 - AdSlot placeholders are placed on the home page and within each calculator
-- Replace with real AdSense code (see "Adding AdSense" section above)
+- Root-level Monetag verification file is included at `public/sw.js` (served as `/sw.js`)
 
 ### Affiliate Links
 
