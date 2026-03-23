@@ -24,6 +24,18 @@ const pageTitle = `${title} | ${siteName}`;
 const ogSlug = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '');
 const ogImage = image || (Astro.url.pathname === '/' ? `${siteUrl}/og-image.png` : `${siteUrl}/og/${ogSlug}.svg`);
 const isToolPage = /calculator|converter/i.test(title);
+const toolClassifierText = `${Astro.url.pathname} ${title}`.toLowerCase();
+const toolApplicationCategory = (() => {
+  if (/(mortgage|loan|credit|debt|retirement|savings|tax|budget|finance|investment|salary|pay|net-worth|roi|refinance|down-payment)/.test(toolClassifierText)) {
+    return 'FinanceApplication';
+  }
+
+  if (/(bmi|calorie|water|protein|tdee|weight|ideal|age|hiking|heart|fitness|body|health)/.test(toolClassifierText)) {
+    return 'HealthApplication';
+  }
+
+  return 'UtilitiesApplication';
+})();
 const breadcrumbItems = Astro.url.pathname === '/'
   ? [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }]
   : [
@@ -37,6 +49,13 @@ const baseJsonLd: Array<Record<string, unknown>> = [
     '@type': 'WebSite',
     name: siteName,
     url: `${siteUrl}/`,
+    inLanguage: 'en-US',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: siteName,
+    url: `${siteUrl}/`,
   },
   {
     '@context': 'https://schema.org',
@@ -44,6 +63,7 @@ const baseJsonLd: Array<Record<string, unknown>> = [
     name: pageTitle,
     description: pageDescription,
     url: canonicalUrl,
+    inLanguage: 'en-US',
     isPartOf: {
       '@type': 'WebSite',
       name: siteName,
@@ -62,7 +82,8 @@ if (isToolPage) {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: title,
-    applicationCategory: title.toLowerCase().includes('converter') ? 'UtilitiesApplication' : 'FinanceApplication',
+    applicationCategory: toolApplicationCategory,
+    applicationSubCategory: title,
     operatingSystem: 'Any',
     isAccessibleForFree: true,
     url: canonicalUrl,

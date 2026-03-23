@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 const DOMAIN = 'https://simplecalculators.io';
-const TODAY = new Date().toISOString().split('T')[0];
 
 const pagesDir = path.resolve(projectRoot, 'src', 'pages');
 const generatedDataPath = path.resolve(projectRoot, 'src', 'react-pages', 'Generated', 'generatedCalculatorData.ts');
@@ -84,34 +83,55 @@ const getStaticPageRoutes = () => {
 
   return files
     .map((fileName) => {
-      if (fileName === 'index.astro') return '/';
-      return `/${fileName.replace(/\.astro$/, '')}`;
+      const routePath = fileName === 'index.astro'
+        ? '/'
+        : `/${fileName.replace(/\.astro$/, '')}`;
+      const sourcePath = path.resolve(pagesDir, fileName);
+      const stat = fs.statSync(sourcePath);
+      return {
+        path: routePath,
+        lastmod: stat.mtime.toISOString().split('T')[0],
+      };
     })
-    .filter((routePath) => !excludedStaticPages.has(routePath))
-    .filter((routePath) => !redirectedLegacyRoutes.has(routePath));
+    .filter((route) => !excludedStaticPages.has(route.path))
+    .filter((route) => !redirectedLegacyRoutes.has(route.path));
 };
 
 const getGeneratedCalculatorRoutes = () => {
   const content = fs.readFileSync(generatedDataPath, 'utf-8');
   const slugRegex = /slug:\s*'([^']+)'/g;
-  const routes = new Set();
+  const routes = new Map();
+  const generatedLastmod = fs.statSync(generatedDataPath).mtime.toISOString().split('T')[0];
   let match;
 
   while ((match = slugRegex.exec(content)) !== null) {
     const routePath = `/${match[1]}`;
     const isDynamicPlaceholder = routePath.includes('[') || routePath.includes(']');
     if (!redirectedLegacyRoutes.has(routePath) && !isDynamicPlaceholder) {
-      routes.add(routePath);
+      routes.set(routePath, generatedLastmod);
     }
   }
 
-  return Array.from(routes);
+  return Array.from(routes, ([path, lastmod]) => ({ path, lastmod }));
 };
 
-const routeSet = new Set([...getStaticPageRoutes(), ...getGeneratedCalculatorRoutes()]);
-const routes = Array.from(routeSet)
-  .sort((left, right) => left.localeCompare(right))
-  .map((routePath) => ({ path: routePath, ...getRouteMeta(routePath) }));
+const staticRoutes = getStaticPageRoutes();
+const generatedRoutes = getGeneratedCalculatorRoutes();
+const routeMap = new Map();
+
+for (const route of staticRoutes) {
+  routeMap.set(route.path, route.lastmod);
+}
+
+for (const route of generatedRoutes) {
+  if (!routeMap.has(route.path)) {
+    routeMap.set(route.path, route.lastmod);
+  }
+}
+
+const routes = Array.from(routeMap.entries())
+  .sort((left, right) => left[0].localeCompare(right[0]))
+  .map(([routePath, lastmod]) => ({ path: routePath, lastmod, ...getRouteMeta(routePath) }));
 
 const toCanonicalPath = (routePath) => {
   if (routePath === '/') return '/';
@@ -128,7 +148,7 @@ function generateSitemap() {
     .map(
       (route) => `  <url>
     <loc>${DOMAIN}${toCanonicalPath(route.path)}</loc>
-    <lastmod>${TODAY}</lastmod>
+    <lastmod>${route.lastmod}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
     <priority>${route.priority}</priority>
   </url>`
