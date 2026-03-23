@@ -142,6 +142,16 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
     .map((item) => ({ path: `/${item.slug}`, title: item.title, icon: item.icon }));
 
   const relatedTools = [...calculator.relatedTools, ...categoryRelated].slice(0, 4);
+  const contextualCategoryLinks = generatedCalculators
+    .filter((item) => item.category === calculator.category && item.slug !== calculator.slug)
+    .slice(0, 8)
+    .map((item) => ({ path: `/${item.slug}`, title: item.title }));
+  const sampleInputs = calculator.fields.slice(0, 6).map((field) => ({
+    key: field.key,
+    label: field.label,
+    value: safeInputValues[field.key] ?? field.defaultValue,
+  }));
+  const sampleResults = output.results.slice(0, 4);
 
   return (
     <div className="space-y-6" data-calculator-container>
@@ -254,14 +264,75 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
       </section>
 
       <Card>
-          <h2 className="text-lg font-semibold text-slate-900 mb-3">How this calculator works</h2>
+        <h2 className="text-lg font-semibold text-slate-900 mb-3">How this calculator works</h2>
         <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
           {(Array.isArray(calculator.howItWorks) ? calculator.howItWorks : []).map((step) => (
             <li key={step}>{step}</li>
           ))}
         </ul>
-        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+        <p className="text-xs text-slate-500 mt-4">
+          Last updated: February 2026. See our{' '}
+          <a href="/methodology" className="text-blue-700 hover:text-blue-800 underline">methodology</a>{' '}
+          and{' '}
+          <a href="/editorial-policy" className="text-blue-700 hover:text-blue-800 underline">editorial policy</a>.
+        </p>
       </Card>
+
+      {sampleResults.length > 0 && (
+        <Card>
+          <h2 className="text-lg font-semibold text-slate-900 mb-3">Worked Example</h2>
+          <p className="text-sm text-slate-600 mb-3">
+            Example using the current inputs:
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <h3 className="font-semibold text-sm text-slate-900 mb-2">Inputs</h3>
+              <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+                {sampleInputs.map((input) => (
+                  <li key={input.key}>
+                    {input.label}: {input.value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-sm text-slate-900 mb-2">Outputs</h3>
+              <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+                {sampleResults.map((result) => (
+                  <li key={result.key}>
+                    {result.label}: {formatValue(result.value, result.format)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      <Card>
+        <h2 className="text-lg font-semibold text-slate-900 mb-3">Assumptions and Limitations</h2>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>{calculator.note}</li>
+          <li>Results are estimates and should be validated for high-stakes decisions.</li>
+          <li>Inputs are interpreted using standard units and rounding rules for readability.</li>
+        </ul>
+      </Card>
+
+      {contextualCategoryLinks.length > 0 && (
+        <Card>
+          <h2 className="text-lg font-semibold text-slate-900 mb-3">Explore Related {calculator.category} Calculators</h2>
+          <p className="text-sm text-slate-600 mb-3">
+            Use these related tools for follow-up calculations and scenario planning:
+          </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            {contextualCategoryLinks.map((tool) => (
+              <a key={tool.path} href={tool.path} className="text-blue-700 hover:text-blue-800 underline">
+                {tool.title}
+              </a>
+            ))}
+          </div>
+        </Card>
+      )}
 
       <Card>
         <h2 className="text-lg font-semibold text-slate-900 mb-3">FAQ</h2>
