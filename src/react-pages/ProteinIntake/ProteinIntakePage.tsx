@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateProteinIntake } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -118,8 +118,7 @@ export default function ProteinIntakePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -174,11 +173,7 @@ export default function ProteinIntakePage() {
             <p className="mt-2">Post-workout protein is beneficial, but overall daily intake matters most. Consistency is key.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/tdee', title: 'TDEE Calculator', icon: 'energy_savings_leaf' },
           { path: '/calories', title: 'Calorie Calculator', icon: 'local_dining' },

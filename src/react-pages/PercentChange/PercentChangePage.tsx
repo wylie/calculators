@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculatePercentChange } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -73,7 +73,7 @@ export default function PercentChangePage() {
               </div>
             </div>
           </Card>
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -128,11 +128,7 @@ export default function PercentChangePage() {
             <p className="mt-2">Yes! Start value first, end value second. Reversing them will flip the sign of the result.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/percentage-increase', title: 'Percentage Increase', icon: 'trending_up' },
           { path: '/percentage-decrease', title: 'Percentage Decrease', icon: 'trending_down' },

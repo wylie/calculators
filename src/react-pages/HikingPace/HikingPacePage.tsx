@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateHikingPace } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -101,8 +101,7 @@ export default function HikingPacePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -157,11 +156,7 @@ export default function HikingPacePage() {
             <p className="mt-2">Elevation gain is the biggest factor. Weather, altitude, trail condition, and fitness also matter significantly.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/time-duration', title: 'Time Duration', icon: 'schedule' },
           { path: '/distance-converter', title: 'Distance Converter', icon: 'straighten' },

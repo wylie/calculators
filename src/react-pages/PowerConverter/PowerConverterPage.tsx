@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertPower } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -68,8 +68,7 @@ export default function PowerConverterPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -124,11 +123,7 @@ export default function PowerConverterPage() {
             <p className="mt-2">Average person produces 50-100 watts at rest. Professional cyclists can produce 400+ watts temporarily.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/cooking-converter', title: 'Cooking Converter', icon: 'restaurant' },
           { path: '/distance-converter', title: 'Distance Converter', icon: 'straighten' },

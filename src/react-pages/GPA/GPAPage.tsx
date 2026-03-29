@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateGPA } from '../../utils/calculators';
 import type { GradeItem } from '../../types';
@@ -156,8 +156,7 @@ export default function GPAPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTirePressure } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -170,8 +170,7 @@ export default function TirePressurePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -227,11 +226,7 @@ export default function TirePressurePage() {
             <p className="mt-2">1 bar = 14.5 psi. Bar is metric; psi is imperial. Most pumps show both.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
           { path: '/cycling-power-to-weight', title: 'Power-to-Weight', icon: 'electric_bolt' },

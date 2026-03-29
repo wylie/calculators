@@ -41,7 +41,7 @@ src/
 │   ├── Input.tsx         # Text input with validation
 │   ├── Select.tsx        # Select/dropdown
 │   ├── Toggle.tsx        # Toggle switch
-│   ├── AdSlot.tsx        # Monetag ad placeholder
+│   ├── SupportButton.tsx # Buy Me a Coffee support component
 │   ├── AffiliateBox.tsx  # Affiliate link component
 │   └── NavAstro.tsx      # Hydrated navigation island
 ├── layouts/
@@ -103,12 +103,12 @@ Calculate gear inches and speed estimates for cycling.
 - Outputs: gear ratio, gear inches, speed in MPH
 - Preset combo comparison
 
-## Ad Setup
+## Support
 
-This project uses Monetag ad placeholders:
+This project uses a reusable Buy Me a Coffee component:
 
-1. Ad containers are rendered by `src/components/AdSlot.tsx`
-2. Monetag verification/service worker file is served from `public/sw.js`
+1. Support containers are rendered by `src/components/SupportButton.tsx`
+2. The button embed is loaded directly in the component on the client
 
 ## Deployment
 
@@ -377,10 +377,10 @@ analytics.trackCustomEvent('my-calculator', 'custom_value');
 
 ## Monetization
 
-### Display Ads (Monetag)
+### Support Button
 
-- AdSlot placeholders are placed on the home page and within each calculator
-- Root-level Monetag verification file is included at `public/sw.js` (served as `/sw.js`)
+- `SupportButton` cards are placed on the home page and calculator layouts
+- The Buy Me a Coffee embed loads from `https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js`
 
 ### Affiliate Links
 

@@ -10,8 +10,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import analytics from '../../utils/analytics';
 
 export default function YourCalculatorName() {
@@ -114,8 +114,7 @@ export default function YourCalculatorName() {
               </div>
             )}
           </Card>
-          
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
     </div>

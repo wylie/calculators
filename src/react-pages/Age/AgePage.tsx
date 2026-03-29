@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Card from '../../components/Card';
-import AdSlot from '../../components/AdSlot';
+import SupportSidebar from '../../components/SupportSidebar';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateAge } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -74,8 +74,7 @@ export default function AgePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -131,11 +130,7 @@ export default function AgePage() {
             <p className="mt-2">Total days lived can be useful for milestone celebrations or scientific age tracking.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/date-difference', title: 'Date Difference', icon: 'event' },
           { path: '/time-duration', title: 'Time Duration', icon: 'schedule' },

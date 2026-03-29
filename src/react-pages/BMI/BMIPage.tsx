@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateBMI } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -92,8 +92,7 @@ export default function BMIPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -149,11 +148,7 @@ export default function BMIPage() {
             <p className="mt-2">No. BMI is one metric. Consider body composition, activity level, and overall health markers with your doctor.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
           { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTip } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -113,8 +113,7 @@ export default function TipPage() {
               )}
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -169,11 +168,7 @@ export default function TipPage() {
             <p className="mt-2">Consider 20%+ for exceptional service, difficult orders, or during busy times.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/tax', title: 'Tax Calculator', icon: 'receipt' },
           { path: '/percentage', title: 'Percentage Converter', icon: 'percent' },

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculatePercentageIncrease } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -63,7 +63,7 @@ export default function PercentageIncreasePage() {
               </div>
             </div>
           </Card>
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -117,11 +117,7 @@ export default function PercentageIncreasePage() {
             <p className="mt-2">Yes! If you go from $1 to $3, that's a 200% increase. From $1 to $100 is 9900% increase.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/percentage-decrease', title: 'Percentage Decrease', icon: 'trending_down' },
           { path: '/percent-change', title: 'Percent Change', icon: 'show_chart' },

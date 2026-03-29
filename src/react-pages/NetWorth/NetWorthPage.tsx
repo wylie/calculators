@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
-import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateNetWorth } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
@@ -235,10 +234,6 @@ export default function NetWorthPage() {
           </details>
         </div>
       </Card>
-
-      <AdSlot />
-
-      <AdSlot />
 
       <RelatedTools
         tools={[

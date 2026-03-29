@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateIdealWeight } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -143,8 +143,7 @@ export default function IdealWeightPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -199,11 +198,7 @@ export default function IdealWeightPage() {
             <p className="mt-2">These formulas don't account for frame size. Larger frames may be heavier at a healthy weight.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/bmi', title: 'BMI Calculator', icon: 'fitness_center' },
           { path: '/calories', title: 'Calorie Calculator', icon: 'local_dining' },

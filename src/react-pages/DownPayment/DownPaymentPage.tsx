@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateDownPayment } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -96,8 +96,7 @@ export default function DownPaymentPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -152,11 +151,7 @@ export default function DownPaymentPage() {
             <p className="mt-2">A larger down payment reduces loan amount, which usually lowers monthly payment and total interest.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
           { path: '/refinance', title: 'Refinance Calculator', icon: 'build' },

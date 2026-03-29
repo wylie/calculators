@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateLoanAffordability } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -93,8 +93,7 @@ export default function LoanAffordabilityPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -148,11 +147,7 @@ export default function LoanAffordabilityPage() {
             <p className="mt-2">This calculator focuses on the loan payment itself. Actual affordability may be lower when including taxes and insurance.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/loan', title: 'Loan Calculator', icon: 'request_quote' },
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

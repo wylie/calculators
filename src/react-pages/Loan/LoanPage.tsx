@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateLoan } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -85,8 +85,7 @@ export default function LoanPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -141,11 +140,7 @@ export default function LoanPage() {
             <p className="mt-2">No. Add origination fees, closing costs, or other charges separately to total cost.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
           { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },

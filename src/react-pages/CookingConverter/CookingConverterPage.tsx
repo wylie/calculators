@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import analytics from '../../utils/analytics';
 
@@ -243,8 +243,7 @@ export default function CookingConverterPage() {
               </p>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -293,11 +292,7 @@ export default function CookingConverterPage() {
             <p className="mt-2">This converter is focused on kitchen volume units (cups, tablespoons, teaspoons, milliliters, and fluid ounces).</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
           { path: '/power-converter', title: 'Power Converter', icon: 'flash_on' },

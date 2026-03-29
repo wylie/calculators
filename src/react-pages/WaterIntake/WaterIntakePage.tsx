@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateWaterIntake } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -117,8 +117,7 @@ export default function WaterIntakePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -173,11 +172,7 @@ export default function WaterIntakePage() {
             <p className="mt-2">Plain water is best. Coffee and tea count, but caffeine is a mild diuretic.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/tdee', title: 'TDEE Calculator', icon: 'energy_savings_leaf' },
           { path: '/calories', title: 'Calorie Calculator', icon: 'local_dining' },

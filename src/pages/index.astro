@@ -1,6 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import AdSlot from '../components/AdSlot';
+import SupportButton from '../components/SupportButton.astro';
 
 const calculators = [
   {
@@ -184,7 +184,7 @@ const converters = [
       ))}
     </div>
 
-    <AdSlot client:load />
+    <SupportButton wrapperClassName="mb-8 mt-0" />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       {calculators.slice(2).map((calc) => (

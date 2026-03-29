@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import analytics from '../../utils/analytics';
 import type { GeneratedCalculatorConfig, ResultFormat } from './generatedCalculatorData';
@@ -142,10 +142,6 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
     .map((item) => ({ path: `/${item.slug}`, title: item.title, icon: item.icon }));
 
   const relatedTools = [...calculator.relatedTools, ...categoryRelated].slice(0, 4);
-  const contextualCategoryLinks = generatedCalculators
-    .filter((item) => item.category === calculator.category && item.slug !== calculator.slug)
-    .slice(0, 8)
-    .map((item) => ({ path: `/${item.slug}`, title: item.title }));
   const sampleInputs = calculator.fields.slice(0, 6).map((field) => ({
     key: field.key,
     label: field.label,
@@ -216,7 +212,7 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
               )) : <p className="text-sm text-slate-600">Results are temporarily unavailable for this input. Try adjusting values or resetting.</p>}
             </div>
           </Card>
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </section>
 
@@ -318,22 +314,6 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
         </ul>
       </Card>
 
-      {contextualCategoryLinks.length > 0 && (
-        <Card>
-          <h2 className="text-lg font-semibold text-slate-900 mb-3">Explore Related {calculator.category} Calculators</h2>
-          <p className="text-sm text-slate-600 mb-3">
-            Use these related tools for follow-up calculations and scenario planning:
-          </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-            {contextualCategoryLinks.map((tool) => (
-              <a key={tool.path} href={tool.path} className="text-blue-700 hover:text-blue-800 underline">
-                {tool.title}
-              </a>
-            ))}
-          </div>
-        </Card>
-      )}
-
       <Card>
         <h2 className="text-lg font-semibold text-slate-900 mb-3">FAQ</h2>
         <div className="space-y-3 text-sm text-slate-700">
@@ -344,11 +324,7 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
             </details>
           ))}
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools tools={relatedTools} />
+      </Card><RelatedTools tools={relatedTools} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateRentVsBuy } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -179,8 +179,7 @@ export default function RentVsBuyPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -235,11 +234,7 @@ export default function RentVsBuyPage() {
             <p className="mt-2">This calculator assumes rent increases annually. Adjust the rent increase percentage to 0 for stable rents.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
           { path: '/down-payment', title: 'Down Payment Calculator', icon: 'attach_money' },

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
-import Card from '../../components/Card'
+import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateRefinance } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
@@ -141,8 +141,7 @@ export default function RefinancePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -165,11 +164,7 @@ export default function RefinancePage() {
             Savings assume you'll hold the loan through the full new term completion
           </p>
         </Card>
-      </div>
-
-      <AdSlot />
-
-      <Card>
+      </div><Card>
         <h2 className="text-xl font-semibold mb-3">How this refinance calculator works</h2>
         <p className="text-sm text-gray-700 mb-3">
           The calculator compares your current loan payment to a proposed refinance payment, then estimates total

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateSimpleInterest } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -81,8 +81,7 @@ export default function InterestPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -92,11 +91,7 @@ export default function InterestPage() {
         <p className="text-sm text-gray-500">
           For example: {formatCurrency(Number(input.principal) || 0)} × {Number(input.rate) || 0}% × {Number(input.time) || 0} years = {formatCurrency(result.interest)} in interest
         </p>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/compound-interest', title: 'Compound Interest', icon: 'calculate' },
           { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },

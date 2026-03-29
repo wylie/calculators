@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Toggle from '../../components/Toggle';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTimeDuration } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -111,8 +111,7 @@ export default function TimeDurationPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -167,11 +166,7 @@ export default function TimeDurationPage() {
             <p className="mt-2">Decimal hours (e.g., 7.5 instead of 7:30) makes it easier to calculate pay or billing rates.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/time', title: 'Time Converter', icon: 'schedule' },
           { path: '/date-difference', title: 'Date Difference', icon: 'event' },

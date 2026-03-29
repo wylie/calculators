@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertHeight } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -73,8 +73,7 @@ export default function HeightConverterPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -129,11 +128,7 @@ export default function HeightConverterPage() {
             <p className="mt-2">Different countries use different systems. Metric is standard in most of the world; imperial in the US.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/distance-converter', title: 'Distance Converter', icon: 'straighten' },
           { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },

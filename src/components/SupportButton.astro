@@ -1,0 +1,115 @@
+---
+export interface Props {
+  siteName?: string;
+  title?: string;
+  compact?: boolean;
+  wrapperClassName?: string;
+  id?: string;
+  targetSelector?: string;
+}
+
+const {
+  siteName = 'Simple Calculators',
+  title = `Support ${siteName}`,
+  compact = false,
+  wrapperClassName = '',
+  id = 'support-card-default',
+  targetSelector,
+} = Astro.props;
+---
+
+<div id={id} class={`support-card ${compact ? 'support-card--compact' : ''} ${wrapperClassName}`.trim()} aria-label={`Support ${siteName}`}>
+  {title && <h3 class="support-title">{title}</h3>}
+  <p class="support-copy">Enjoying the calculators? You can support future updates here.</p>
+  <div class="support-button-wrap">
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="Wylie" data-color="#ffb703" data-emoji="🫖"  data-font="Cookie" data-text="Buy me a tea" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#FFDD00" ></script>
+  </div>
+</div>
+
+{targetSelector && (
+  <script is:inline define:vars={{ id, targetSelector }}>
+    (() => {
+      const findFallbackTarget = () => {
+        const grids = Array.from(document.querySelectorAll('main div[class]'));
+        for (const grid of grids) {
+          const className = grid.getAttribute('class') || '';
+          const looksLikeCalculatorGrid =
+            className.includes('grid-cols-1') &&
+            className.includes('lg:grid-cols-3');
+          if (!looksLikeCalculatorGrid) continue;
+
+          const children = Array.from(grid.children).filter((child) => child instanceof HTMLElement);
+          if (children.length >= 2) {
+            return children[1];
+          }
+        }
+        return null;
+      };
+
+      const moveCard = () => {
+        const card = document.getElementById(id);
+        if (!card) return;
+
+        let target = null;
+        try {
+          target = document.querySelector(targetSelector);
+        } catch {
+          target = null;
+        }
+        if (!target) {
+          target = findFallbackTarget();
+        }
+        if (!card || !target || card.parentElement === target) return;
+        target.appendChild(card);
+      };
+
+      const moveAfterHydration = () => {
+        // Defer to avoid React hydration mismatch inside island-managed subtrees.
+        window.setTimeout(moveCard, 0);
+      };
+
+      if (document.readyState === 'complete') {
+        moveAfterHydration();
+      } else {
+        window.addEventListener('load', moveAfterHydration, { once: true });
+      }
+
+      document.addEventListener('astro:page-load', moveAfterHydration);
+    })();
+  </script>
+)}
+
+<style>
+  .support-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background: #fff;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.05);
+  }
+
+  .support-card--compact {
+    margin-top: 0.5rem;
+  }
+
+  .support-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .support-copy {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    color: #475569;
+  }
+
+  .support-button-wrap {
+    margin-top: 0.5rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

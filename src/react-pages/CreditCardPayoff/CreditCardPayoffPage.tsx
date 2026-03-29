@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
-import Card from '../../components/Card'
+import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateCreditCardPayoff } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
@@ -88,8 +88,7 @@ export default function CreditCardPayoffPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -144,11 +143,7 @@ export default function CreditCardPayoffPage() {
             <p className="mt-2">No. It is an estimate for planning. Actual payoff timing can vary by issuer fees and statement timing.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

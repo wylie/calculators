@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateInflation } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -101,8 +101,7 @@ export default function InflationPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -157,11 +156,7 @@ export default function InflationPage() {
             <p className="mt-2">No. Housing, healthcare, and education often inflate faster than general CPI averages.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/compound-interest', title: 'Compound Interest', icon: 'trending_up' },
           { path: '/retirement', title: 'Retirement Calculator', icon: 'savings' },

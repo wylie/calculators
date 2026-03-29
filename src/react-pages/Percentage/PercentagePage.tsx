@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 import analytics from '../../utils/analytics';
@@ -95,14 +95,9 @@ export default function PercentagePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
-      </div>
-
-      <AdSlot />
-
-      <Card>
+      </div><Card>
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this percentage converter works</h3>
         <p className="text-sm text-slate-700 mb-3">
           This tool handles three related tasks: finding a percentage of a value, converting percent to decimal,

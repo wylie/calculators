@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateDebtToIncomeRatio } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -71,8 +71,7 @@ export default function DebtToIncomePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -127,11 +126,7 @@ export default function DebtToIncomePage() {
             <p className="mt-2">No. Lenders also consider credit score, savings, employment history, and down payment size.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
           { path: '/loan', title: 'Loan Calculator', icon: 'request_quote' },

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertTemperature } from '../../utils/calculators';
 import { formatNumber } from '../../utils/formatting';
@@ -113,14 +113,9 @@ export default function WeatherPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
-      </div>
-
-      <AdSlot />
-
-      <Card>
+      </div><Card>
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this temperature converter works</h3>
         <p className="text-sm text-slate-700 mb-3">
           This converter switches between Celsius and Fahrenheit using standard formulas and shows quick reference

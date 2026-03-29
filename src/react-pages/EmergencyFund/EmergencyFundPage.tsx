@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateEmergencyFund } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -72,8 +72,7 @@ export default function EmergencyFundPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -128,11 +127,7 @@ export default function EmergencyFundPage() {
             <p className="mt-2">Build a small fund ($1,000) first, then pay high-interest debt. Once debt is low, build to 3-6 months.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/savings', title: 'Savings Calculator', icon: 'savings' },
           { path: '/budget', title: 'Budget Calculator', icon: 'account_balance_wallet' },

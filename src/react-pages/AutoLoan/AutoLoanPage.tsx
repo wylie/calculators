@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import useStickyState from '../../utils/useStickyState'
-import Card from '../../components/Card'
+import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input'
 import Select from '../../components/Select'
-import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateAutoLoan } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
@@ -115,8 +115,7 @@ export default function AutoLoanPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -139,11 +138,7 @@ export default function AutoLoanPage() {
             Total cost includes principal + interest over the full loan term
           </p>
         </Card>
-      </div>
-
-      <AdSlot />
-
-      <Card>
+      </div><Card>
         <h2 className="text-lg font-semibold mb-3">How this auto loan calculator works</h2>
         <p className="text-sm text-gray-600 mb-3">
           This calculator estimates principal-and-interest payments using your car price, down payment, APR, and loan term.

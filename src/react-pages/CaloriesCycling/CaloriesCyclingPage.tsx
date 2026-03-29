@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCaloriesCycling } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -130,8 +130,7 @@ export default function CaloriesCyclingPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -186,11 +185,7 @@ export default function CaloriesCyclingPage() {
             <p className="mt-2">It depends on your goals. Some people create a deficit by exercising. Use this as a guide, not a precise measurement.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/tdee', title: 'TDEE Calculator', icon: 'local_fire_department' },
           { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },

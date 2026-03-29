@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTDEE } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -203,8 +203,7 @@ export default function TDEEPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -259,11 +258,7 @@ export default function TDEEPage() {
             <p className="mt-2">Not necessarily. Weekly averages matter more than daily fluctuations. Flexibility helps with adherence.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/calories', title: 'Calorie Calculator', icon: 'local_dining' },
           { path: '/bmi', title: 'BMI Calculator', icon: 'fitness_center' },

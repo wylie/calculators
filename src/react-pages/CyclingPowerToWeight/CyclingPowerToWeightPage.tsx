@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCyclingPowerToWeight } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -110,8 +110,7 @@ export default function CyclingPowerToWeightPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -167,11 +166,7 @@ export default function CyclingPowerToWeightPage() {
             <p className="mt-2">No. Peak power is maximum for seconds; FTP is sustainable for 60 minutes. FTP is more useful.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
           { path: '/tire-pressure', title: 'Tire Pressure', icon: 'departure_board' },

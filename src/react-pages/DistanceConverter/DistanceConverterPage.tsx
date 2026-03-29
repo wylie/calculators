@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertDistance } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -68,8 +68,7 @@ export default function DistanceConverterPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -124,11 +123,7 @@ export default function DistanceConverterPage() {
             <p className="mt-2">Nautical miles (1.852 km) are used for sea and air travel. This tool covers land distances.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/height-converter', title: 'Height Converter', icon: 'straighten' },
           { path: '/speed', title: 'Speed Converter', icon: 'speed' },

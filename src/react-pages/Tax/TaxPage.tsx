@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Toggle from '../../components/Toggle';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTax } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -83,8 +83,7 @@ export default function TaxPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -139,11 +138,7 @@ export default function TaxPage() {
             <p className="mt-2">Check your local sales tax rate. In the US, combine state and local rates for the total percentage.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/tip', title: 'Tip Calculator', icon: 'payments' },
           { path: '/percentage', title: 'Percentage Converter', icon: 'percent' },

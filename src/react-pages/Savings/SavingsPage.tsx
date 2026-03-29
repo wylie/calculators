@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateSavings } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -100,8 +100,7 @@ export default function SavingsPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -156,11 +155,7 @@ export default function SavingsPage() {
             <p className="mt-2">Earned interest grows your balance faster than contributions alone, compounding over time.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/compound-interest', title: 'Compound Interest', icon: 'trending_up' },
           { path: '/investment-growth', title: 'Investment Growth', icon: 'show_chart' },

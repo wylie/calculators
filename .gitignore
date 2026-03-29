@@ -24,3 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 package.json.bak
+calculator-icons.csv
+calculator-pages.csv
+calculator-pages.tsv

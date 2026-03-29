@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
-import Card from '../../components/Card'
+import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateInvestmentGrowth } from '../../utils/calculators'
 import { formatCurrency, formatPercentage } from '../../utils/formatting'
@@ -101,8 +101,7 @@ export default function InvestmentGrowthPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -151,11 +150,7 @@ export default function InvestmentGrowthPage() {
             <p className="mt-2">Yes. Annual returns vary over time, so use conservative assumptions for planning scenarios.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
           { path: '/compound-interest', title: 'Compound Interest', icon: 'calculate' },

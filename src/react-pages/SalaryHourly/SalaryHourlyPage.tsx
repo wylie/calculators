@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateSalaryHourly } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -102,8 +102,7 @@ export default function SalaryHourlyPage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
       </div>
 
@@ -159,11 +158,7 @@ export default function SalaryHourlyPage() {
             <p className="mt-2">No. These show gross amounts before taxes, insurance, or other deductions.</p>
           </details>
         </div>
-      </Card>
-
-      <AdSlot />
-
-      <RelatedTools
+      </Card><RelatedTools
         tools={[
           { path: '/tax', title: 'Tax Calculator', icon: 'receipt' },
           { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },

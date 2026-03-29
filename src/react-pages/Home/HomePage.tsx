@@ -1,5 +1,4 @@
 import Card from '../../components/Card';
-import AdSlot from '../../components/AdSlot';
 
 export default function HomePage() {
   const calculators = [
@@ -373,11 +372,7 @@ export default function HomePage() {
             </Card>
           </a>
         ))}
-      </div>
-
-      <AdSlot />
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      </div><div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {calculators.slice(2).map((calc) => (
           <a key={calc.path} href={calc.path}>
             <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">

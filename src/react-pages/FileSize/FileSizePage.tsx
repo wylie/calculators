@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
+import SupportSidebar from '../../components/SupportSidebar';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 import analytics from '../../utils/analytics';
@@ -100,14 +100,9 @@ export default function FileSizePage() {
               </div>
             </div>
           </Card>
-
-          <AdSlot />
+          <SupportSidebar />
         </div>
-      </div>
-
-      <AdSlot />
-
-      <Card>
+      </div><Card>
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this file size converter works</h3>
         <p className="text-sm text-slate-700 mb-3">
           This tool converts between KB, MB, and GB using binary-size factors (1024 based) common in computing contexts.
