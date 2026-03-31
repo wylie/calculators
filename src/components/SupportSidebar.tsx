@@ -1,10 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react';
 
-interface SupportSidebarProps {
-  siteName?: string;
-}
-
-function SupportSidebarBase({ siteName = 'Simple Calculators' }: SupportSidebarProps) {
+function SupportSidebarBase() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showFallback, setShowFallback] = useState(false);
 
@@ -48,8 +44,8 @@ function SupportSidebarBase({ siteName = 'Simple Calculators' }: SupportSidebarP
   }, []);
 
   return (
-    <aside className="mt-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 shadow-sm" aria-label={`Support ${siteName}`}>
-      <h3 className="text-[1.05rem] font-semibold text-slate-900">Support {siteName}</h3>
+    <aside className="mt-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 shadow-sm" aria-label="Support the Developer">
+      <h3 className="text-[1.05rem] font-semibold text-slate-900">Support the Developer</h3>
       <p className="mt-2 text-sm text-slate-600">Enjoying the calculators? You can support future updates here.</p>
       <div
         ref={containerRef}

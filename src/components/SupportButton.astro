@@ -1,6 +1,5 @@
 ---
 export interface Props {
-  siteName?: string;
   title?: string;
   compact?: boolean;
   wrapperClassName?: string;
@@ -9,8 +8,7 @@ export interface Props {
 }
 
 const {
-  siteName = 'Simple Calculators',
-  title = `Support ${siteName}`,
+  title = 'Support the Developer',
   compact = false,
   wrapperClassName = '',
   id = 'support-card-default',
@@ -18,7 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<div id={id} class={`support-card ${compact ? 'support-card--compact' : ''} ${wrapperClassName}`.trim()} aria-label={`Support ${siteName}`}>
+<div id={id} class={`support-card ${compact ? 'support-card--compact' : ''} ${wrapperClassName}`.trim()} aria-label="Support the Developer">
   {title && <h3 class="support-title">{title}</h3>}
   <p class="support-copy">Enjoying the calculators? You can support future updates here.</p>
   <div class="support-button-wrap">
