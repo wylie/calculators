@@ -8,6 +8,27 @@ import analytics from '../../utils/analytics';
 
 const todayIso = new Date().toISOString().slice(0, 10);
 
+function parseIsoDateToUtcTimestamp(value: string): number {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return NaN;
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(Date.UTC(2000, month - 1, day));
+  date.setUTCFullYear(year);
+
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) {
+    return NaN;
+  }
+
+  return date.getTime();
+}
+
 export default function DateDifferencePage() {
   useEffect(() => {
     analytics.trackCalculatorView('date-difference');
@@ -15,11 +36,11 @@ export default function DateDifferencePage() {
   const [startDate, setStartDate] = useStickyState('date-diff-start', todayIso);
   const [endDate, setEndDate] = useStickyState('date-diff-end', todayIso);
 
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const validDates = !isNaN(start.getTime()) && !isNaN(end.getTime());
+  const startTs = parseIsoDateToUtcTimestamp(startDate);
+  const endTs = parseIsoDateToUtcTimestamp(endDate);
+  const validDates = !isNaN(startTs) && !isNaN(endTs);
   const dayMs = 1000 * 60 * 60 * 24;
-  const diffMs = validDates ? Math.abs(end.getTime() - start.getTime()) : 0;
+  const diffMs = validDates ? Math.abs(endTs - startTs) : 0;
   const days = Math.round(diffMs / dayMs);
   const weeks = days / 7;
   const months = days / 30.44;
