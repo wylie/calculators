@@ -23,6 +23,7 @@ export default function DateDifferencePage() {
   const days = Math.round(diffMs / dayMs);
   const weeks = days / 7;
   const months = days / 30.44;
+  const years = days / 365.2425;
 
   return (
     <div>
@@ -75,6 +76,10 @@ export default function DateDifferencePage() {
                 <p className="text-sm text-slate-600">Months (approx)</p>
                 <p className="text-2xl font-semibold text-slate-900">{formatNumber(months, 2)}</p>
               </div>
+              <div className="border-t border-slate-200 pt-4">
+                <p className="text-sm text-slate-600">Years (approx)</p>
+                <p className="text-2xl font-semibold text-slate-900">{formatNumber(years, 2)}</p>
+              </div>
             </div>
           </Card>
           <SupportSidebar />
@@ -83,12 +88,13 @@ export default function DateDifferencePage() {
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this date difference calculator works</h3>
         <p className="text-sm text-slate-700 mb-3">
           The tool measures the absolute time gap between two dates and reports the difference in days, weeks,
-          and approximate months.
+          approximate months, and approximate years.
         </p>
         <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
           <li>Days are based on exact millisecond difference</li>
           <li>Weeks are derived from days ÷ 7</li>
           <li>Months are estimated using average month length</li>
+          <li>Years are estimated using 365.2425 days per year</li>
         </ul>
         <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
       </Card>
