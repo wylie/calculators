@@ -105,7 +105,8 @@ export default function DateDifferencePage() {
           </Card>
           <SupportSidebar />
         </div>
-      </div><Card>
+      </div>
+      <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this date difference calculator works</h3>
         <p className="text-sm text-slate-700 mb-3">
           The tool measures the absolute time gap between two dates and reports the difference in days, weeks,
