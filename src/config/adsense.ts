@@ -1,4 +1,5 @@
 export const ADSENSE_PUBLISHER_ID = 'ca-pub-1766867001144344';
+export const ADSENSE_ENABLED = false;
 
 export const ADSENSE_SCRIPT_SRC =
   `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`;
@@ -19,7 +20,7 @@ export interface AdSlotDefinition {
 }
 
 // Replace these placeholder slot IDs with real Google AdSense slot IDs after the site
-// is approved and the production ad units have been created in the AdSense dashboard.
+// is approved, then set ADSENSE_ENABLED to true to render production ad units.
 export const ADSENSE_SLOTS: Record<AdSlotKey, AdSlotDefinition> = {
   homeIntro: {
     slotId: ADSENSE_SLOT_IDS.homeIntro,

@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { ADSENSE_PUBLISHER_ID, ADSENSE_SLOTS, type AdSlotKey } from '../config/adsense';
+import { ADSENSE_ENABLED, ADSENSE_PUBLISHER_ID, ADSENSE_SLOTS, type AdSlotKey } from '../config/adsense';
 
 declare global {
   interface Window {
@@ -23,9 +23,13 @@ export default function AdSlot({ slot, className = '' }: AdSlotProps) {
   const slotConfig = ADSENSE_SLOTS[slot];
   const adRef = useRef<HTMLModElement | null>(null);
   const timeoutRef = useRef<number | null>(null);
-  const slotReadyForAds = isProduction && !isPlaceholderSlotId(slotConfig.slotId);
+  const slotReadyForAds = ADSENSE_ENABLED && isProduction && !isPlaceholderSlotId(slotConfig.slotId);
   const [showFallback, setShowFallback] = useState(!slotReadyForAds);
   const fallbackId = useId();
+
+  if (!slotReadyForAds) {
+    return null;
+  }
 
   useEffect(() => {
     if (!slotReadyForAds) {
@@ -110,15 +114,7 @@ export default function AdSlot({ slot, className = '' }: AdSlotProps) {
           data-ad-layout="in-article"
           aria-describedby={showFallback ? fallbackId : undefined}
         />
-        {showFallback && (
-          <div
-            id={fallbackId}
-            className="absolute inset-0 flex items-center justify-center px-6 text-center text-sm text-slate-500"
-          >
-            Ad space reserved. Replace the placeholder AdSense slot ID in `src/config/adsense.ts` after
-            approval to serve production ads here.
-          </div>
-        )}
+        {showFallback && <div id={fallbackId} className="sr-only">Advertisement</div>}
       </div>
     </aside>
   );
