@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef, useState } from 'react';
+import AdSlot from './AdSlot';
 
 function SupportSidebarBase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,28 +45,31 @@ function SupportSidebarBase() {
   }, []);
 
   return (
-    <aside className="mt-6 rounded-lg border border-slate-200 bg-white px-4 py-2.5 shadow-sm" aria-label="Support the Developer">
-      <h3 className="text-[1.05rem] font-semibold text-slate-900">Support the Developer</h3>
-      <p className="mt-2 text-sm text-slate-600">Enjoying the calculators? You can support future updates here.</p>
-      <div
-        ref={containerRef}
-        className={showFallback ? 'hidden' : 'mt-2 flex min-h-[44px] items-center justify-center'}
-        suppressHydrationWarning
-      />
-      {showFallback && (
-        <div className="mt-2 flex items-center justify-center">
-          <button
-            type="button"
-            onClick={() => window.open('https://www.buymeacoffee.com/Wylie', '_blank', 'noopener,noreferrer')}
-            className="inline-flex items-center justify-center rounded-xl border border-amber-500 bg-amber-400 px-5 py-1.5 text-black shadow-sm"
-            style={{ fontFamily: "'Cookie', cursive", fontSize: '2.1rem', lineHeight: 1 }}
-          >
-            <span className="mr-2 text-[1.5rem]" aria-hidden="true">☕</span>
-            Buy me a tea
-          </button>
-        </div>
-      )}
-    </aside>
+    <div className="mt-2 space-y-4">
+      <AdSlot slot="calculatorAfterResults" />
+      <aside className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 shadow-sm" aria-label="Support the Developer">
+        <h3 className="text-[1.05rem] font-semibold text-slate-900">Support the Developer</h3>
+        <p className="mt-2 text-sm text-slate-600">Enjoying the calculators? You can support future updates here.</p>
+        <div
+          ref={containerRef}
+          className={showFallback ? 'hidden' : 'mt-2 flex min-h-[44px] items-center justify-center'}
+          suppressHydrationWarning
+        />
+        {showFallback && (
+          <div className="mt-2 flex items-center justify-center">
+            <button
+              type="button"
+              onClick={() => window.open('https://www.buymeacoffee.com/Wylie', '_blank', 'noopener,noreferrer')}
+              className="inline-flex items-center justify-center rounded-xl border border-amber-500 bg-amber-400 px-5 py-1.5 text-black shadow-sm"
+              style={{ fontFamily: "'Cookie', cursive", fontSize: '2.1rem', lineHeight: 1 }}
+            >
+              <span className="mr-2 text-[1.5rem]" aria-hidden="true">☕</span>
+              Buy me a tea
+            </button>
+          </div>
+        )}
+      </aside>
+    </div>
   );
 }
 

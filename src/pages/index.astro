@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SupportButton from '../components/SupportButton.astro';
+import AdSlot from '../components/AdSlot';
 
 const calculators = [
   {
@@ -166,6 +167,9 @@ const converters = [
       A collection of fast, lightweight calculators to help you with everyday calculations.
     </p>
 
+    <!-- Home page ad slots are configured in src/config/adsense.ts. Add future placements there first, then reference them here. -->
+    <AdSlot slot="homeIntro" client:load />
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       {calculators.slice(0, 2).map((calc) => (
         <a href={calc.path}>
@@ -225,5 +229,7 @@ const converters = [
         ))}
       </div>
     </div>
+
+    <AdSlot slot="homeBottom" className="mt-12" client:load />
   </div>
 </MainLayout>

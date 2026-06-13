@@ -1,4 +1,5 @@
 import Card from './Card'
+import AdSlot from './AdSlot'
 
 interface RelatedTool {
   path: string
@@ -72,6 +73,10 @@ export default function RelatedTools({ tools }: RelatedToolsProps) {
 
   return (
     <section className="mt-8 pt-8 border-t border-slate-200" aria-label="Related calculators and converters">
+      <AdSlot
+        slot="calculatorBottom"
+        className="mb-8"
+      />
       <h2 className="text-3xl font-bold text-slate-900 mb-4">Related Calculators</h2>
       <p className="text-sm text-slate-600 mb-4">
         Explore more calculators and converters for related scenarios.
